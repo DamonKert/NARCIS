@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row, Typography } from 'antd'
+import { Button, Col, Form, Input, InputNumber, Row, Select, Typography } from 'antd'
 import React from 'react'
 
 export default function CustomerInfo() {
@@ -21,16 +21,18 @@ export default function CustomerInfo() {
                         </Col>
                         <Col xs={24} md={12}>
                             <Form.Item name={'Phonenumber'} label="Phonenumber" rules={[
-                                { required: true, message: "Please input Phonenumber" }
+                                { required: true, message: "Please input Phonenumber" },
                             ]}>
                                 <Input placeholder='Phonenumber' />
+                                {/* <InputNumber placeholder='Phonenumber' className='w-100'/> */}
                             </Form.Item>
                         </Col>
                         <Col xs={24} md={12}>
                             <Form.Item name={'Province'} label="Province" rules={[
                                 { required: true, message: "Please input Province" }
                             ]}>
-                                <Input placeholder='Province' />
+                                {/* <Input placeholder='Province' /> */}
+                                <Select placeholder='Province' />
                             </Form.Item>
                         </Col>
                         <Col xs={24} md={12}>

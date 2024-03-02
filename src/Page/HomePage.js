@@ -1,4 +1,4 @@
-import { Image, List, Typography } from 'antd';
+import { List, Typography } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap';
 import ViewProduct from '../Component/ViewProduct';
@@ -19,7 +19,7 @@ function HomePage(props) {
         for (let i = 0; i < 20; i++) {
             const Temp = {
                 id: i,
-                Title: "wrap style   pleated skirt dress " + i,
+                Title: "wrap style pleated skirt dress " + i,
                 Price: 4000,
                 Discount: 20,
                 // Image: List_Image.Image,
@@ -65,14 +65,16 @@ function HomePage(props) {
                 </List>
                 <div className='position-relative'>
                     <div className='d-flex justify-content-between M-Icon-Container'>
-                        <div className='M-Arrow-Swiper-Left user-select-none M-Min-Responsive-1024'>
+                        {/* <div className='M-Arrow-Swiper-Left user-select-none M-Min-Responsive-1024'> */}
+                        <div className='M-Arrow-Swiper-Left user-select-none'>
                             <LeftOutlined width={25} height={25}
                                 onClick={() => {
                                     const swiper = document.getElementById('Swiper-ID').swiper;
                                     swiper.slidePrev(1000);
                                 }} />
                         </div>
-                        <div className='M-Arrow-Swiper-Right user-select-none M-Min-Responsive-1024'>
+                        {/* <div className='M-Arrow-Swiper-Right user-select-none M-Min-Responsive-1024'> */}
+                        <div className='M-Arrow-Swiper-Right user-select-none'>
                             <RightOutlined width={25} height={25} onClick={() => {
                                 const swiper = document.getElementById('Swiper-ID').swiper;
                                 swiper.slideNext(1000);
