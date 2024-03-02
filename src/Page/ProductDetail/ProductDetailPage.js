@@ -91,16 +91,14 @@ export default function ProductDetailPage() {
                         </div>
                     </Col>
                     <Col lg={12} className='p-0 mt-5 mt-lg-0' style={{ borderTop: "3px solid black" }}>
-                        <Row >
+                        <Row>
                             <Col span={20}>
                                 <Typography.Title level={2} className='pt-4 pb-4'>{Data.Title}</Typography.Title>
                             </Col>
-                            {/* <Col span={4} className='d-flex justify-content-center align-items-center'> */}
-                            <div className='text-white Discount-Box d-flex justify-content-center align-items-center' style={{ borderRadius: '50%', backgroundColor: 'black' }}>
-                                {Data.Discount}%
-                            </div>
-                            {/* </Col> */}
                         </Row>
+                        <div className='text-white Discount-Box d-flex justify-content-center align-items-center' style={{ borderRadius: '50%', backgroundColor: 'black' }}>
+                            {Data.Discount}%
+                        </div>
                         <Row gutter={[0, 20]}>
                             <Col span={24}>
                                 <Row>

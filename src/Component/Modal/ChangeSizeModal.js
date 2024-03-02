@@ -8,9 +8,9 @@ export default function ChangeSizeModal(props) {
         return <></>
     }
     const HandleSave = () => {
-        Data.Detail.Size = Size;
-        Data.Detail.Quantity = 1;
-        props.HandleSave(Data);
+        // Data.Detail.Size = ;
+        // Data.Detail.Quantity = 1;
+        props.HandleSave(Data,Size);
         OnClose();
     }
     return (

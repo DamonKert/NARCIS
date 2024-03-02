@@ -1,5 +1,5 @@
-import { Button, Col, Collapse, Divider, Image, InputNumber, List, Row, Typography } from 'antd';
-import React, { useState } from 'react'
+import { Button, Checkbox, Col, Collapse, Divider, Image, InputNumber, List, Row, Typography } from 'antd';
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import TotalPriceView from '../Component/TotalPriceView';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
@@ -8,12 +8,28 @@ import ChangeSizeModal from '../Component/Modal/ChangeSizeModal';
 
 function CartDetail(props) {
     const { Data } = props;
+    const [SelectedItem, setSelectedItem] = useState([]);
+    const [SelectedAll, setSelectedAll] = useState(false);
     const [ChangeData, setChangeData] = useState(undefined);
     const [ModalChangeData, setModalChangeData] = useState(false);
-    const HandleSave = (newData) => {
+    useEffect(() => {
+        const Temp = [];
+        Data.forEach(item => {
+            Temp.push({
+                id: item.id,
+                checked: false,
+                Size: item.Detail.Size.Name
+            });
+        })
+        setSelectedItem([...Temp]);
+    }, [Data]);
+    const HandleSave = (newData, Size) => {
         props.dispatch({
-            type: "UPDATE-DATA",
-            payload: newData
+            type: "UPDATE-SIZE",
+            payload: {
+                Data: newData,
+                Size: Size
+            }
         });
     }
     const HandleDelete = (DeleteData) => {
@@ -22,9 +38,27 @@ function CartDetail(props) {
             payload: DeleteData
         })
     }
+    const onChange = (id, Name) => {
+        console.log(Name);
+        console.log(SelectedItem);
+        SelectedItem.forEach((item, index) => {
+            if (item.id === id && item.Size === Name) {
+                SelectedItem[index].checked = !SelectedItem[index].checked;
+                return;
+            }
+        })
+        setSelectedItem([...SelectedItem]);
+    }
+    const HandleSelect = () => {
+        SelectedItem.forEach((item, index) => {
+            SelectedItem[index].checked = !SelectedAll;
+        })
+        setSelectedItem([...SelectedItem]);
+        setSelectedAll(!SelectedAll);
+    }
     return (
         <div>
-            <Row>
+            <Row gutter={[40, 20]}>
                 <Col xs={24} lg={16}>
                     <Collapse
                         bordered={false}
@@ -43,8 +77,15 @@ function CartDetail(props) {
                                     <div>
                                         <List
                                             renderItem={(item) => {
-                                                return <div className='position-relative'>
-                                                    <div>
+                                                return <Row className='position-relative'>
+                                                    <Col span={1}>
+                                                        <Checkbox className='pe-3 rounded-0' checked={SelectedItem.filter(selected => selected.id === item.id && selected.Size === item.Detail.Size.Name)[0].checked}
+                                                            onChange={
+                                                                () => onChange(item.id, item.Detail.Size.Name)
+                                                            }>
+                                                        </Checkbox>
+                                                    </Col>
+                                                    <Col span={23}>
                                                         <div className='d-flex gap-3'>
                                                             <Image className='M-Cart-Image-View' preview={false} src={item.Image[0]} />
                                                             <div>
@@ -130,12 +171,12 @@ function CartDetail(props) {
                                                             <Button style={{ height: 50 }} block className='rounded-0'>Product of interest</Button>
                                                             <Button style={{ height: 50 }} block className='rounded-0'>Place an Order</Button>
                                                         </div>
-                                                    </div>
+                                                    </Col>
                                                     <Divider />
                                                     <div className='top-0 position-absolute' style={{ right: 0 }}>
                                                         <CloseOutlined className='text-danger' onClick={() => HandleDelete(item)} />
                                                     </div>
-                                                </div>
+                                                </Row>
                                             }}
                                             dataSource={Data} />
                                     </div>
@@ -154,6 +195,9 @@ function CartDetail(props) {
                     </div>
                 </Col>
             </Row>
+            <Button className='w-25 mt-3 rounded-0' style={{ height: 50 }} onClick={HandleSelect}>
+                {SelectedAll ? 'Unselect All' : 'Select All'}
+            </Button>
             <ChangeSizeModal
                 Show={ModalChangeData}
                 HandleSave={HandleSave}

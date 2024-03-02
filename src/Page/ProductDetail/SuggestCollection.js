@@ -32,15 +32,15 @@ function SuggestCollection(props) {
     <div>
 
       <div className='position-relative'>
-        <div className='d-flex justify-content-between M-Icon-Container '>
-          <div className='M-Arrow-Swiper-Left user-select-none M-Min-Responsive-1024'>
+        <div className='d-flex justify-content-between M-Icon-Container-Detail'>
+          <div className='M-Arrow-Swiper-Left user-select-none'>
             <LeftOutlined width={25} height={25}
               onClick={() => {
                 const swiper = document.getElementById('Swiper-ID').swiper;
                 swiper.slidePrev(1000);
               }} />
           </div>
-          <div className='M-Arrow-Swiper-Right user-select-none M-Min-Responsive-1024'>
+          <div className='M-Arrow-Swiper-Right user-select-none'>
             <RightOutlined width={25} height={25} onClick={() => {
               const swiper = document.getElementById('Swiper-ID').swiper;
               swiper.slideNext(1000);

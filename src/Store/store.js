@@ -34,6 +34,9 @@ const CartReducer = (state = {
                 state.Data = state.Data.map((item) => {
                     if (item.id !== action.payload.id || item.Detail.Size.Name !== action.payload.Detail.Size.Name)
                         return item;
+                    // else
+                    if (item.Detail.Quantity + action.payload.Detail.Quantity > item.Detail.Size.quantity)
+                        action.payload.Detail.Quantity = item.Detail.Size.quantity;
                     else
                         action.payload.Detail.Quantity = item.Detail.Quantity + action.payload.Detail.Quantity;
                     return action.payload
@@ -53,21 +56,38 @@ const CartReducer = (state = {
                 ...state,
                 Data: [...state.Data.filter((item) => item.id !== action.payload.id)]
             };
+
+        case "UPDATE-SIZE": {
+            const newData = state.Data.filter(item => item.id !== action.payload.Data.id || action.payload.Data.Detail.Size.Name !== item.Detail.Size.Name);
+
+            const check = newData.filter(item => item.id === action.payload.Data.id && action.payload.Size.Name === item.Detail.Size.Name);
+
+            if (check.length > 0) {
+                const updatedData = newData.map(item => {
+                    if (item.id === action.payload.Data.id && action.payload.Size.Name === item.Detail.Size.Name) {
+                        const updatedQuantity = action.payload.Data.Detail.Quantity + item.Detail.Quantity;
+                        item.Detail.Quantity = updatedQuantity > item.Detail.Size.quantity ? item.Detail.Size.quantity : updatedQuantity;
+                    }
+                    return item;
+                });
+
+                return {
+                    ...state,
+                    Data: updatedData
+                };
+            } else {
+                action.payload.Data.Detail.Size = action.payload.Size;
+                const updatedState = state.Data.map(item => {
+                    return item.id === action.payload.Data.id ? action.payload.Data : item;
+                });
+
+                return {
+                    ...state,
+                    Data: updatedState
+                };
+            }
+        }
         case "UPDATE-DATA": {
-            // const Check = state.Data.filter(item => item.id === action.payload.id && item.Detail.Size.Name === action.payload.Detail.Size.Name);
-            // if (Check.length > 0) {
-            //     state.Data = state.Data.map((item) => {
-            //         if (item.id !== action.payload.id || item.Detail.Size.Name !== action.payload.Detail.Size.Name)
-            //             return item;
-            //         else
-            //             action.payload.Detail.Quantity = item.Detail.Quantity + action.payload.Detail.Quantity;
-            //         return action.payload
-            //     })
-            //     return {
-            //         ...state,
-            //         Data: [...state.Data]
-            //     }
-            // }
             state.Data = state.Data.map((item) => {
                 return item.id !== action.payload.id || item.Detail.Size.Name !== action.payload.Detail.Size.Name ? item : action.payload
             })
