@@ -1,3 +1,4 @@
+import '../../CSS/Customer.css';
 import { HomeOutlined, MenuOutlined, SearchOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { Badge } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'

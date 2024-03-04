@@ -1,4 +1,3 @@
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import 'swiper/css';
@@ -23,7 +22,26 @@ const CategoryPage = React.lazy(() => import('./Page/Customer/Category/CategoryP
 //Admin
 const AdminMiddleware = React.lazy(() => import('./Page/Admin/Middleware'));
 const AdminDefaultPage = React.lazy(() => import('./Page/Admin/DefaultLayout'));
+
+const AdminUser = React.lazy(() => import('./Page/Admin/User/User'));
+const AdminUserForm = React.lazy(() => import('./Page/Admin/User/UserForm'));
+
+const AdminModel = React.lazy(() => import('./Page/Admin/Model/Model'));
+const AdminModelForm = React.lazy(() => import('./Page/Admin/Model/ModelForm'));
+
+const AdminProfile = React.lazy(() => import('./Page/Admin/Profile/Profile'));
+
+const AdminDashboard = React.lazy(() => import('./Page/Admin/Dashboard/Dashboard'));
+
+const AdminOrder = React.lazy(() => import('./Page/Admin/Order/Order'));
+
+const AdminCloth = React.lazy(() => import('./Page/Admin/Cloth/Cloth'));
+const AdminClothForm = React.lazy(() => import('./Page/Admin/Cloth/ClothForm'));
+
+const AdminProvince = React.lazy(() => import('./Page/Admin/Province/Province'));
+
 const Error404 = React.lazy(() => import('./Page/404/Error404'));
+
 
 
 function App() {
@@ -43,7 +61,26 @@ function App() {
 
         </Route>
         <Route path='/Admin' element={<Suspense><AdminMiddleware /></Suspense>}>
-          <Route index element={<Suspense><AdminDefaultPage /></Suspense>}></Route>
+          <Route path='' element={<Suspense><AdminDefaultPage /></Suspense>}>
+
+            <Route path='User' element={<Suspense><AdminUser /></Suspense>}></Route>
+            <Route path='User-Form' element={<Suspense><AdminUserForm /></Suspense>}></Route>
+            <Route path='User-Edit/:id' element={<Suspense><AdminUserForm /></Suspense>}></Route>
+
+            <Route path='Cloth' element={<Suspense><AdminCloth /></Suspense>}></Route>
+            <Route path='Cloth-Form' element={<Suspense><AdminClothForm /></Suspense>}></Route>
+            <Route path='Cloth-Edit/:id' element={<Suspense><AdminClothForm /></Suspense>}></Route>
+
+            <Route path='Model' element={<Suspense><AdminModel /></Suspense>}></Route>
+            <Route path='Model-Form' element={<Suspense><AdminModelForm /></Suspense>}></Route>
+            <Route path='Model-Edit/:id' element={<Suspense><AdminModelForm /></Suspense>}></Route>
+
+            <Route path='Province' element={<Suspense><AdminProvince /></Suspense>}></Route>
+
+            <Route path='Profile' element={<Suspense><AdminProfile /></Suspense>}></Route>
+            <Route path='Dashboard' element={<Suspense><AdminDashboard /></Suspense>}></Route>
+            <Route path='Order' element={<Suspense><AdminOrder /></Suspense>}></Route>
+          </Route>
           <Route path='Login' element={<Suspense><h1>LOGIN</h1></Suspense>}></Route>
         </Route>
         <Route path='*' element={<Suspense><Error404 /></Suspense>} />
