@@ -1,37 +1,29 @@
 import { Breadcrumb, Carousel, Col, Divider, Image, Row, Typography } from 'antd';
 import React, { useState } from 'react'
-// import { Container } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import ProductDetailInput from '../../Component/ProductDetailInput';
 import ImageGroupPreview from '../../Component/ImageGroupPreview';
 import StackForMobile from '../../Component/StackForMobile';
 import SuggestCollection from './SuggestCollection';
 import { List_Image } from '../../Image/ListImage';
-// import { connect } from 'react-redux';
 
 
 export default function ProductDetailPage() {
-    // const [Loading, setLoading] = useState(true);
     const [Size, setSize] = useState({});
     const [Quantity, setQuantity] = useState(0);
-    const location = useLocation();
     const Data = {
         id: 1,
         Title: "wrap style   pleated skirt dress " + 1,
         Price: 4000,
         Discount: 20,
-        // Image: List_Image.Image,
         Image: List_Image.Image_3,
         category: "Dress",
         Description: "Formal fabric with a smooth surface, wrap-style dress. The waist size can be adjusted with the strap inserted into the waist of the right layer to create a dress fit, skirt pleat detail from the left body waist cut, long sleeves with a slim silhouette, and a pleated line at the back. Emphasis on lines with darts.",
         size: [{ Name: 'M', quantity: 50 }, { Name: 'S', quantity: 50 }, { Name: "L", quantity: 50 }, { Name: "XL", quantity: 50 }],
         Model: "C1-030"
     }
-    // const Data = location.state.Data;
     const [CurrentImage, setCurrentImage] = useState(Data.Image[0]);
     const [ShowGroupPreview, setShowGroupPreview] = useState(false);
-    console.log(1, location);
-    console.log(2, Data);
     return (
         <div>
             <div className='M-Max-Responsive-1024'>
@@ -40,10 +32,7 @@ export default function ProductDetailPage() {
                 </div>
                 <div>
                     <Carousel
-                        //If need fade effect
-                        // effect="fade"
                         lazyLoad={true}
-                        //If want to act like a slider
                         draggable
                         autoplay
                         style={{ fontSize: 20 }}
@@ -64,9 +53,6 @@ export default function ProductDetailPage() {
                             {
                                 title: <Link style={{ textDecoration: 'none' }} to={`/${Data.category}`}>{Data.category}</Link>,
                             },
-                            // {
-                            //     title: <Link style={{ textDecoration: 'none' }} to={`/${Data.category}/${'All'}`}>All</Link>,
-                            // },
                         ]}
                     />
                 </div>
@@ -167,9 +153,3 @@ export default function ProductDetailPage() {
         </div>
     )
 }
-
-// const mapStateToProps = (state) => ({
-//     Data: state.CartReducer.Data
-// })
-
-// export default connect(mapStateToProps)(ProductDetailPage);

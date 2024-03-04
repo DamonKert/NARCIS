@@ -1,4 +1,4 @@
-import { List, Typography } from 'antd';
+import { Carousel, List, Typography } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap';
 import ViewProduct from '../Component/ViewProduct';
@@ -33,12 +33,31 @@ function HomePage(props) {
         }
         setdataSource([...Temp_Data]);
     }, [])
+    const Image_Banner = [1, 2, 3, 4, 5, 6, 7]
     return (
         <div>
             <div>
-                <a href='/category/BLOUSE'>
-                    <LazyLoadImage alt='Image-Bander' width={'100%'} src='Images/Bander.jpeg' className='object-fit-fill' />
-                </a>
+                <Carousel
+                    // effect="fade"
+                    lazyLoad={true}
+                    draggable
+                    autoplay
+                    style={{ fontSize: 20 }}
+                >
+                    {Image_Banner.map((item, index) => {
+                        return <a href='/category/BLOUSE' key={index}>
+                            <LazyLoadImage alt='Image-Bander' width={'100%'}
+                                srcSet='Images/Bander-700.jpeg 600w, Images/Bander.jpeg 1000w'
+                                src='Images/Bander.jpeg'
+                                className='object-fit-fill M-Banner-PC' />
+                            <LazyLoadImage alt='Image-Bander'
+                                width={'100%'}
+                                src='Images/Bander-700.jpeg'
+                                className='object-fit-fill M-Banner-Mobile' />
+                        </a>
+                    })}
+                </Carousel>
+
             </div>
             <Container className='mt-md-5 mt-0 p-md-5 p-3 text-center'>
                 <Typography.Title level={3} className='fw-bold'>NEW ARRIVALS

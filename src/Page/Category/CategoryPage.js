@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import StackForMobile from '../Component/StackForMobile';
+import StackForMobile from '../../Component/StackForMobile';
 import { Breadcrumb, Col, List, Row, Typography } from 'antd';
 import { Button, Form } from 'react-bootstrap';
-import { List_Image } from '../Image/ListImage';
-import ViewProduct from '../Component/ViewProduct';
+import { List_Image } from '../../Image/ListImage';
+import ViewProduct from '../../Component/ViewProduct';
 import { connect } from 'react-redux';
 
-function ListProductByCategoryPage(props) {
+function CategoryPage(props) {
     const [CurrentType, setCurrentType] = useState(0);
     const location = useLocation();
     const categorySpilt = location.pathname.split('/');
@@ -96,10 +96,11 @@ function ListProductByCategoryPage(props) {
                                 <option className='text-center' value={"Sort"} onClick={() => { setSort("") }}>
                                     Sort
                                 </option>
-                                <option className='text-center' onClick={() => { setSort({ ColumnName: "Created_at", by: "" }) }}>New Product</option>
-                                <option className='text-center' onClick={() => { setSort({ ColumnName: "Name", by: "" }) }}>Product Name</option>
+                                <option className='text-center' onClick={() => { setSort({ ColumnName: "Created_at", by: "ASC" }) }}>New Product</option>
+                                <option className='text-center' onClick={() => { setSort({ ColumnName: "Name", by: "ASC" }) }}>Product Name</option>
                                 <option className='text-center' onClick={() => { setSort({ ColumnName: "Price", by: "ASC" }) }}>Low Price</option>
-                                <option className='text-center' onClick={() => { setSort({ ColumnName: "Price", by: "ASC" }) }}>High Price</option>
+                                <option className='text-center' onClick={() => { setSort({ ColumnName: "Price", by: "DESC" }) }}>High Price</option>
+                                <option className='text-center' onClick={() => { setSort({ ColumnName: "Special", by: "ASC" }) }}>Special offer</option>
                             </Form.Select>
                         </div>
                     </div>
@@ -132,6 +133,4 @@ function ListProductByCategoryPage(props) {
 
 const mapDispatchToProps = (dispatch) => ({ dispatch })
 
-// const 
-
-export default connect(null, mapDispatchToProps)(ListProductByCategoryPage);
+export default connect(null, mapDispatchToProps)(CategoryPage);

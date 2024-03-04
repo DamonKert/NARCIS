@@ -1,9 +1,9 @@
-import { Button, Checkbox, Col, Collapse, Divider, Image, InputNumber, List, Row, Typography } from 'antd';
+import { Button, Checkbox, Col, Collapse, Divider, Image, InputNumber, List, Row } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import TotalPriceView from '../Component/TotalPriceView';
+import TotalPriceView from '../../Component/TotalPriceView';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import ChangeSizeModal from '../Component/Modal/ChangeSizeModal';
+import ChangeSizeModal from '../../Component/Modal/ChangeSizeModal';
 
 
 function CartDetail(props) {
@@ -68,9 +68,9 @@ function CartDetail(props) {
                             label: 'shopping cart items',
                             children: <div className='p-3'>
                                 <div className='p-3'>
-                                    <Typography.Title level={5}>
+                                    <h5>
                                         General products ({Data.length})
-                                    </Typography.Title>
+                                    </h5>
                                 </div>
                                 {
                                     Data.length !== 0 &&
@@ -90,16 +90,16 @@ function CartDetail(props) {
                                                             <Image className='M-Cart-Image-View' preview={false} src={item.Image[0]} />
                                                             <div>
                                                                 <div>
-                                                                    <Typography.Text>{item.Title}</Typography.Text>
+                                                                    {item.Title}
                                                                 </div>
                                                                 <div>
-                                                                    <Typography.Text>{item.Price - item.Price * item.Discount / 100} $</Typography.Text>
+                                                                    {item.Price - item.Price * item.Discount / 100} $
                                                                 </div>
                                                                 <div>
-                                                                    <Typography.Text><span className='text-danger'>-0</span> $</Typography.Text>
+                                                                    <span className='text-danger'>-0</span> $
                                                                 </div>
                                                                 <div>
-                                                                    <Typography.Text>Shipping: [Free] / Basic shipping</Typography.Text>
+                                                                    50$ free shipping
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -114,7 +114,7 @@ function CartDetail(props) {
                                                         </div>
                                                         <Row className='mt-3'>
                                                             <Col span={10}>
-                                                                <Typography.Text>Quantity</Typography.Text>
+                                                                Quantity
                                                             </Col>
                                                             <Col span={14} className='d-flex justify-content-end align-items-center'>
                                                                 <div role='button' onClick={() => {
@@ -157,9 +157,7 @@ function CartDetail(props) {
                                                         <Divider />
                                                         <div className='d-flex justify-content-between'>
                                                             <div>
-                                                                <Typography.Text>
-                                                                    Order amount
-                                                                </Typography.Text>
+                                                                Order amount
                                                             </div>
                                                             <div>
                                                                 <span className='fw-bold'>

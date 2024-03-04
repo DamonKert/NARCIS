@@ -3,7 +3,7 @@ import { Button, Col, Divider, InputNumber, Row, Typography } from 'antd';
 import React from 'react'
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { Notification } from '../Asset/ShowNotification';
 function ProductDetailInput(props) {
     const { NotDrawer, Data, Size, setSize, setQuantity, Quantity } = props;
     const navigation = useNavigate();
@@ -11,6 +11,7 @@ function ProductDetailInput(props) {
         setQuantity(0);
         setSize({});
         if (Quantity !== 0) {
+            Notification.ShowSuccess("Success", "Product has been added to Busket")
             props.dispatch({
                 type: "ADD-CART",
                 payload: {
@@ -24,17 +25,11 @@ function ProductDetailInput(props) {
             if (props.onClose !== undefined) {
                 props.onClose();
             }
-            // props.dispatch({
-            //     type: "CLOSE",
-            //     payload: {
-            //         Show: false,
-            //     }
-            // })
             if (NotDrawer === true) {
-                navigation(`/`);
+                navigation(-1);
             }
         } else {
-            alert("Please provide Size");
+            Notification.ShowWarning("Warning", "Please provide Size in other to add product to cart")
         }
     }
 

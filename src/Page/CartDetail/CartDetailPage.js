@@ -1,15 +1,21 @@
 import { Breadcrumb, Steps, Typography } from 'antd';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 // import CartDetail from './CartDetail';
 // import CustomerInfo from './CustomerInfo';
 // import OrderCompleted from './OrderCompleted';
 
 function CartDetailPage(props) {
     const navigation = useNavigate();
-    const [current, setcurrent] = useState(0);
+    const location = useLocation();
+    const temp = {
+        cart: 0,
+        profile: 1,
+        completed: 2
+    };
+    const [current, setcurrent] = useState(temp[location.pathname.split('/')[2]]);
     const onChange = (value) => {
         setcurrent(value);
         if (value === 0) {
@@ -20,6 +26,7 @@ function CartDetailPage(props) {
             navigation('/order/completed');
         }
     }
+
     return (
         <Container>
             <div className='d-flex justify-content-end'>
@@ -46,7 +53,6 @@ function CartDetailPage(props) {
                         {
                             status: current === 0 ? 'process' : 'wait',
                             title: 'Shopping Cart',
-
                         },
                         {
                             status: current === 1 ? 'process' : 'wait',
