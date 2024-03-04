@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, InputNumber, Row, Select, Typography } from 'antd'
+import { Button, Col, Form, Input, Row, Select, Typography } from 'antd'
 import React from 'react'
 
 export default function CustomerInfo() {

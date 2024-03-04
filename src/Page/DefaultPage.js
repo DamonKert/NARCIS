@@ -2,11 +2,9 @@
 import { HomeOutlined, MenuOutlined, SearchOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { Badge } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
-import { Image } from 'react-bootstrap'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import SearchDrawer from '../Component/Drawer/SearchDrawer'
 import { List_Image } from '../Image/ListImage';
-import ProductDetailDrawer from '../Component/Drawer/ProductDetailDrawer'
 import { connect } from 'react-redux'
 import ListMenu from '../Component/ListMenu'
 import ListMenuDrawer from '../Component/Drawer/ListMenuDrawer'
