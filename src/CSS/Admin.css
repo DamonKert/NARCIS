@@ -1,0 +1,39 @@
+
+.M-Header {
+  height: 80px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  /* text-align: center; */
+}
+
+.M-Content {
+  flex: 1;
+}
+
+.M-Footer {
+  height: 80px;
+  text-align: center;
+}
+
+.M-Container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.M-Logo-Container {
+  display: flex;
+  width: 200px;
+  justify-content: center;
+}
+.M-Logo {
+  /* width: 200px !important; */
+  height: 40px !important;
+  /* width: auto !important; */
+}
+.M-Icon {
+  font-size: 22px;
+}
