@@ -1,10 +1,9 @@
 import { Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { List_Image } from '../../Image/ListImage';
+import { List_Image } from '../../../Image/ListImage';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperViewProduct from '../../Component/SwiperViewProduct';
-import ViewProduct from '../../Component/ViewProduct';
+import ViewProduct from '../../../Component/ViewProduct';
 import { Autoplay, Scrollbar } from 'swiper/modules';
 import { connect } from 'react-redux';
 

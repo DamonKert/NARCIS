@@ -1,13 +1,12 @@
-// import { Image } from 'antd'
 import { HomeOutlined, MenuOutlined, SearchOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { Badge } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
-import SearchDrawer from '../Component/Drawer/SearchDrawer'
-import { List_Image } from '../Image/ListImage';
+import SearchDrawer from '../../Component/Drawer/SearchDrawer'
+import { List_Image } from '../../Image/ListImage';
 import { connect } from 'react-redux'
-import ListMenu from '../Component/ListMenu'
-import ListMenuDrawer from '../Component/Drawer/ListMenuDrawer'
+import ListMenu from '../../Component/ListMenu'
+import ListMenuDrawer from '../../Component/Drawer/ListMenuDrawer'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 function DefaultPage(props) {

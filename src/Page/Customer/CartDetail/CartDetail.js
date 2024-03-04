@@ -1,9 +1,9 @@
 import { Button, Checkbox, Col, Collapse, Divider, Image, InputNumber, List, Row } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import TotalPriceView from '../../Component/TotalPriceView';
+import TotalPriceView from '../../../Component/TotalPriceView';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import ChangeSizeModal from '../../Component/Modal/ChangeSizeModal';
+import ChangeSizeModal from '../../../Component/Modal/ChangeSizeModal';
 
 
 function CartDetail(props) {

@@ -1,13 +1,13 @@
 import { Carousel, List, Typography } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap';
-import ViewProduct from '../Component/ViewProduct';
-import SwiperViewProduct from '../Component/SwiperViewProduct';
+import ViewProduct from '../../Component/ViewProduct';
+import SwiperViewProduct from '../../Component/SwiperViewProduct';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Autoplay, Scrollbar } from 'swiper/modules';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { List_Image } from '../Image/ListImage';
+import { List_Image } from '../../Image/ListImage';
 import { connect } from 'react-redux';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 

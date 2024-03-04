@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import StackForMobile from '../../Component/StackForMobile';
+import StackForMobile from '../../../Component/StackForMobile';
 import { Breadcrumb, Col, List, Row, Typography } from 'antd';
 import { Button, Form } from 'react-bootstrap';
-import { List_Image } from '../../Image/ListImage';
-import ViewProduct from '../../Component/ViewProduct';
+import { List_Image } from '../../../Image/ListImage';
+import ViewProduct from '../../../Component/ViewProduct';
 import { connect } from 'react-redux';
 
 function CategoryPage(props) {
