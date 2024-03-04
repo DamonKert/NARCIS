@@ -1,11 +1,11 @@
 import { Breadcrumb, Carousel, Col, Divider, Image, Row, Typography } from 'antd';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import ProductDetailInput from '../../Component/ProductDetailInput';
-import ImageGroupPreview from '../../Component/ImageGroupPreview';
-import StackForMobile from '../../Component/StackForMobile';
+import ProductDetailInput from '../../../Component/ProductDetailInput';
+import ImageGroupPreview from '../../../Component/ImageGroupPreview';
+import StackForMobile from '../../../Component/StackForMobile';
 import SuggestCollection from './SuggestCollection';
-import { List_Image } from '../../Image/ListImage';
+import { List_Image } from '../../../Image/ListImage';
 
 
 export default function ProductDetailPage() {

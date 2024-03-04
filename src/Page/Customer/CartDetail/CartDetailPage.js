@@ -3,9 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-// import CartDetail from './CartDetail';
-// import CustomerInfo from './CustomerInfo';
-// import OrderCompleted from './OrderCompleted';
 
 function CartDetailPage(props) {
     const navigation = useNavigate();
@@ -67,16 +64,6 @@ function CartDetailPage(props) {
             </div>
             <div className='mt-5 mb-5'>
                 <Outlet />
-                {/* {current === 0 &&
-                    <CartDetail />}
-                {
-                    current === 1 &&
-                    <CustomerInfo />
-                }
-                {
-                    current === 2 &&
-                    <OrderCompleted />
-                } */}
             </div>
         </Container>
     )
