@@ -10,6 +10,7 @@ import React, { Suspense } from 'react';
 import CartDetail from './Page/Customer/CartDetail/CartDetail';
 import CustomerInfo from './Page/Customer/CartDetail/CustomerInfo';
 import OrderCompleted from './Page/Customer/CartDetail/OrderCompleted';
+import Login from './Page/Login';
 
 //Customer
 const HomePage = React.lazy(() => import('./Page/Customer/HomePage'));
@@ -48,6 +49,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path = '/login' element ={<Suspense><Login></Login></Suspense>}></Route>
         <Route path='/' element={<Suspense> <CustomerDefaultPage></CustomerDefaultPage></Suspense>}>
           <Route index element={<Suspense> <HomePage /></Suspense>}></Route>
           <Route path='product/:name' element={<Suspense> <ProductDetailPage /> </Suspense>}></Route>
