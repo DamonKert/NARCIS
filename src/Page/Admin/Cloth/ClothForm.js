@@ -1,9 +1,18 @@
 import { Button, Col, Form, Input, InputNumber, Row, Select, Upload } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, CardBody, CardFooter, CardHeader } from 'react-bootstrap'
-import { GetRequired } from '../../../Asset/Validated/Validated';
+import { GetRequired, checkFile } from '../../../Asset/Validated/Validated';
 import { PlusOutlined } from '@ant-design/icons';
+import ImageGroupPreview from '../../../Component/ImageGroupPreview';
+import { getBase64 } from '../../../Asset/Tool Helper/Tool';
+import { API } from '../../../API/API';
+import { GET_MODEL } from '../../../API/URL';
 export default function ClothForm() {
+    // const [PreviewImage,setPreviewImage] = useState();
+    const [ImagePreview, setImagePreview] = useState("");
+    const [PreviewShow, setPreviewShow] = useState(false);
+    const [fileList, setFileList] = useState([]);
+    const [ListModel, setListModel] = useState([]);
     const [ListCategory, setListCategory] = useState([{
         value: "Top & T-Shirt",
         label: "Top & T-Shirt"
@@ -11,41 +20,61 @@ export default function ClothForm() {
         label: "Shirt & Blouse",
         value: "Shirt & Blouse"
     }, {
-        // value: 3,
         value: "One Piece & Dress",
         label: "One Piece & Dress"
     }, {
-        // value: 4,
         value: "MINI-MIDI",
         label: "MINI-MIDI"
     }, {
-        // value: 5,
         value: "LONG-MIDI",
         label: "LONG-MIDI"
     }, {
-        // value: 6,
         value: "JUMPSUIT",
         label: "JUMPSUIT"
     }, {
-        // value: 7,
         value: "Pants & Shorts",
         label: "Pants & Shorts",
     }, {
-        // value: 8,
         value: "TROUSERS",
         label: "TROUSERS"
     }, {
-        // value: 9,
         value: "SHORTS",
         label: "SHORTS"
     }, {
-        // value: 10,
         value: "SKIRT",
         label: "SKIRT"
     },]);
     const HandleSubmit = (Data) => {
         console.log(Data);
     }
+
+    useEffect(() => {
+        API.GET(GET_MODEL)
+            .then(res => {
+                if (res.StatusCode === 200) {
+                    const Temp = [];
+                    res.Data.forEach(item => {
+                        Temp.push({
+                            value: item.Id,
+                            label: item.Id + ' / ' + item.Name
+                        })
+                    });
+                    setListModel([...Temp]);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, [])
+
+    const HandlePreview = async (file) => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj);
+        }
+        setImagePreview(file.url || file.preview);
+        setPreviewShow(true);
+    }
+    const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
     return (
         <Form layout='vertical'
             onFinish={HandleSubmit}>
@@ -55,9 +84,9 @@ export default function ClothForm() {
                 </CardHeader>
                 <CardBody>
                     <Row
-                        gutter={[30, 20]}
+                        gutter={[30, 0]}
                     >
-                        <Col xs={24} lg={12}>
+                        <Col xs={24}>
                             <Form.Item label="Name" name={"Name"} rules={[{
                                 ...GetRequired("Name")
                             }]}>
@@ -65,10 +94,17 @@ export default function ClothForm() {
                             </Form.Item>
                         </Col>
                         <Col xs={24} lg={12}>
-                            <Form.Item label="Gategory" name={"Gategory"} rules={[{
+                            <Form.Item label="Gategory" name={"GategoryId"} rules={[{
                                 ...GetRequired("Gategory")
                             }]}>
                                 <Select showSearch autoClearSearchValue placeholder='Gategory' options={ListCategory} />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={24} lg={12}>
+                            <Form.Item label="Model" name={"ModelId"} rules={[{
+                                ...GetRequired("Model")
+                            }]}>
+                                <Select showSearch autoClearSearchValue placeholder='Model' options={ListModel} />
                             </Form.Item>
                         </Col>
                         <Col xs={24} lg={12}>
@@ -93,17 +129,25 @@ export default function ClothForm() {
                             </Form.Item>
                         </Col>
                         <Col xs={24} >
-                            <Form.Item label="Images" name={"Images"} rules={[{
-                                ...GetRequired("Images")
-                            }]}>
+                            <Form.Item
+                                label="Images"
+                                name={"Images"}
+                                getValueFromEvent={checkFile}
+                                valuePropName="fileList"
+                                rules={[{
+                                    ...GetRequired("Images")
+                                }]}>
 
                                 <Upload.Dragger
                                     listType="picture-circle"
+
                                     beforeUpload={(file) => {
                                         console.log(file);
                                         return false;
                                     }}
-                                    onPreview={false}
+                                    fileList={fileList}
+                                    onChange={handleChange}
+                                    onPreview={HandlePreview}
                                     multiple
                                 >
                                     <button style={{ border: 0, background: 'none' }} type="button">
@@ -119,6 +163,7 @@ export default function ClothForm() {
                     <Button htmlType='submit'>SUBMIT</Button>
                 </CardFooter>
             </Card>
+            <ImageGroupPreview Images={[ImagePreview]} Show={PreviewShow} OnClose={() => setPreviewShow(false)} />
         </Form >
     )
 }

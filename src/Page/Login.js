@@ -14,6 +14,7 @@ export default function Login() {
       console.log('in');
       fetch(`https://localhost:7266/api/Login`, {
         method: 'POST',
+        //   mode: "no-cors",
         headers: {
           'Content-Type': 'application/json',
         },
@@ -30,7 +31,7 @@ export default function Login() {
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.log(2,error);
         });
     }
   };
