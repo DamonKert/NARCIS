@@ -1,35 +1,34 @@
 import React, { useState } from "react";
-import { LoginOutlined } from "@ant-design/icons";
-import { Steps, Form, Input, Button } from "antd";
+// import { LoginOutlined } from "@ant-design/icons";
+import { Form, Input, Button } from "antd";
 
 export default function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const doLogin = (e) => {
     e.preventDefault();
-    console.log(username);
-    console.log(password);
     if (username != null && password != null) {
-      console.log('in');
-      var data ={
+      var data = {
         Username: username,
         Password: password,
-      }
+      };
+
       console.log(data);
-      
+
       fetch(`https://localhost:7266/api/Login`, {
         method: 'POST',
+        //   mode: "no-cors",
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({Username: username, Password: password})
+        body: JSON.stringify(data),
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          console.log(1,data);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(2,error);
         });
     }
   };

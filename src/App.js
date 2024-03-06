@@ -49,7 +49,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path = '/login' element ={<Suspense><Login></Login></Suspense>}></Route>
         <Route path='/' element={<Suspense> <CustomerDefaultPage></CustomerDefaultPage></Suspense>}>
           <Route index element={<Suspense> <HomePage /></Suspense>}></Route>
           <Route path='product/:name' element={<Suspense> <ProductDetailPage /> </Suspense>}></Route>
@@ -83,7 +82,8 @@ function App() {
             <Route path='Dashboard' element={<Suspense><AdminDashboard /></Suspense>}></Route>
             <Route path='Order' element={<Suspense><AdminOrder /></Suspense>}></Route>
           </Route>
-          <Route path='Login' element={<Suspense><h1>LOGIN</h1></Suspense>}></Route>
+          {/* <Route path='/login' element={<Suspense><Login></Login></Suspense>}></Route> */}
+          <Route path='Login' element={<Suspense><Login /></Suspense>}></Route>
         </Route>
         <Route path='*' element={<Suspense><Error404 /></Suspense>} />
       </Routes>
