@@ -28,6 +28,7 @@ export default function Login() {
           } else if (data.StatusCode === 200) {
             Cookies.set('userToken', data.Token);
             console.log(Cookies.get('userToken'));
+            
           }
         })
         .catch((error) => {
