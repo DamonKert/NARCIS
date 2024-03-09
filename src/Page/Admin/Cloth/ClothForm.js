@@ -1,10 +1,10 @@
-import { Button, Col, Form, Input, InputNumber, Row, Select, Upload } from 'antd'
+import { Button, Col, Form, Input, InputNumber, Row, Select, Space, Upload } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Card, CardBody, CardFooter, CardHeader } from 'react-bootstrap'
 import { GetRequired, checkFile } from '../../../Asset/Validated/Validated';
-import { PlusOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import ImageGroupPreview from '../../../Component/ImageGroupPreview';
-import { getBase64 } from '../../../Asset/Tool Helper/Tool';
+import { ConvertObjectToFormData, getBase64 } from '../../../Asset/Tool Helper/Tool';
 import { API } from '../../../API/API';
 import { GET_MODEL } from '../../../API/URL';
 export default function ClothForm() {
@@ -46,6 +46,14 @@ export default function ClothForm() {
     },]);
     const HandleSubmit = (Data) => {
         console.log(Data);
+
+        // console.log(Data.Images[0]);
+         
+         const params = new URLSearchParams(Data).toString();
+    
+        console.log(params);
+     
+        API.POST('https://localhost:7266/api/Clothes',params);
     }
 
     useEffect(() => {
@@ -97,7 +105,7 @@ export default function ClothForm() {
                             <Form.Item label="Gategory" name={"GategoryId"} rules={[{
                                 ...GetRequired("Gategory")
                             }]}>
-                                <Select showSearch autoClearSearchValue placeholder='Gategory' options={ListCategory} />
+                                <Select showSearch autoClearSearchValue placeholder='Category' options={ListCategory} />
                             </Form.Item>
                         </Col>
                         <Col xs={24} lg={12}>
@@ -120,6 +128,46 @@ export default function ClothForm() {
                             }]}>
                                 <InputNumber className='w-100' placeholder='Discount' />
                             </Form.Item>
+                        </Col>
+                        <Col xs={24}>
+                            <Form.List name={"size with cloth quantity"} className="w-100">
+                                {/* <Row> */}
+
+                                {(fields, { add, remove }) => (
+                                    <div className='w-100'>
+                                        {fields.map((field, index) => {
+                                            return (<Space key={field.key} direction="horizontal">
+                                                <div className='w-100 d-flex gap-5'>
+                                                    <Form.Item name={[field.name, "Size"]}
+                                                        label={`${index + 1}-size`}>
+                                                        <Select placeholder="Size" className='w-100'>
+                                                            {["S", "M", "L", "XL", "XXL"].map((size) => {
+                                                                return (<Select.Option value={size} key={size}>
+                                                                    {size}
+                                                                </Select.Option>)
+                                                            })}
+                                                        </Select>
+                                                    </Form.Item>
+                                                    <Form.Item name={[field.name, "Quantity"]} label={`quantities`}
+                                                        rules={[{
+                                                            ...GetRequired("Quantity")
+                                                        }]}>
+                                                        <Input placeholder="Quantity" className='w-100'></Input>
+                                                    </Form.Item>
+                                                    <MinusCircleOutlined style={{ height: 40, color: "red" }} onClick={() => { remove(field.name) }}></MinusCircleOutlined>
+                                                </div>
+                                            </Space>
+                                            )
+                                        })}
+                                        <Form.Item>
+                                            <Button icon={<PlusOutlined />} type="dashed" block onClick={add}>
+                                                Add size with its quantity
+                                            </Button>
+                                        </Form.Item>
+                                    </div>
+                                )}
+                                {/* </Row> */}
+                            </Form.List>
                         </Col>
                         <Col xs={24}>
                             <Form.Item label="Description" name={"Description"} rules={[{
