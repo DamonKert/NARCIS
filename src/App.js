@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/js/dist/dropdown';
 
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -22,6 +23,7 @@ const ProductDetailPage = React.lazy(() => import('./Page/Customer/ProductDetail
 
 const CategoryPage = React.lazy(() => import('./Page/Customer/Category/CategoryPage'));
 
+const RecentlyPage = React.lazy(() => import('./Page/Customer/RecentlyDetail/RecentlyPage'));
 
 //Admin
 const Login = React.lazy(() => import('./Page/Admin/Login'));
@@ -66,6 +68,7 @@ function App() {
             <Route path='profile' element={<Suspense><CustomerInfo /></Suspense>}></Route>
             <Route path='completed' element={<Suspense><OrderCompleted /></Suspense>}></Route>
           </Route>
+          <Route path='View-Recently' element={<Suspense><RecentlyPage /></Suspense>} />
           <Route path='category/:name/:child' element={<Suspense><CategoryPage /></Suspense>}></Route>
           <Route path='category/:name' element={<Suspense><CategoryPage /></Suspense>}></Route>
 

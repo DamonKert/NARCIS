@@ -81,20 +81,13 @@
   display: block;
 }
 
-/* .M-Remove-Padding-Table.ant-table-tbody {
-  padding: 0 !important;
-}
-.ant-table-tbody > tr > td {
-  padding: 0 !important;
-} */
-
-.ant-space{
+.ant-space {
   width: 100% !important;
 }
-.ant-space-item{
+.ant-space-item {
   width: 100% !important;
 }
 
-.ant-form-item{
+.ant-form-item {
   width: 100% !important;
 }

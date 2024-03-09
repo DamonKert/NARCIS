@@ -1,8 +1,11 @@
 import { Card, Image } from 'antd'
 import React from 'react'
+import { NumericFormat } from 'react-number-format';
+import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-export default function SwiperViewProduct({ Data }) {
+function SwiperViewProduct(props) {
+    const { Data, Currency } = props;
     const navigation = useNavigate();
     const HandleView = () => {
         navigation(`/product/${Data.Title.replace(/ /g, '-')}`, { state: { Data: Data } });
@@ -22,10 +25,16 @@ export default function SwiperViewProduct({ Data }) {
                             description={
                                 <div>
                                     <div>
-                                        <p className='M-Delete-Text m-0'>{Data.Price} $</p>
+                                        <p className='M-Delete-Text m-0'>
+                                            <NumericFormat value={(Data.Price * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
+                                        </p>
                                     </div>
                                     <div className='mt-1'>
-                                        <p className='m-0'><strong>{Data.Price - Data.Price * Data.Discount / 100} $</strong></p>
+                                        <p className='m-0'>
+                                            <strong>
+                                                <NumericFormat value={((Data.Price - Data.Price * Data.Discount / 100) * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
+                                            </strong>
+                                        </p>
                                     </div>
                                 </div>
                             }>
@@ -36,3 +45,14 @@ export default function SwiperViewProduct({ Data }) {
         </Card>
     )
 }
+
+
+const mapStateToProps = (state) => ({
+    Currency: {
+        Multiple: state.MoneyReducer.Multiple,
+        Name: state.MoneyReducer.Name,
+        Symbol: state.MoneyReducer.Symbol
+    }
+})
+
+export default connect(mapStateToProps)(SwiperViewProduct);

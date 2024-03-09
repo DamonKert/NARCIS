@@ -1,9 +1,10 @@
 import { Col, Divider, Row, Typography } from 'antd';
 import React from 'react'
+import { NumericFormat } from 'react-number-format';
 import { connect } from 'react-redux';
 
 function TotalPriceView(props) {
-    const { Data } = props;
+    const { Data, Currency } = props;
     const Total = Data.reduce((accumulator, currentValue) => {
         const temp = currentValue.Detail.Quantity * (currentValue.Price - (currentValue.Price * currentValue.Discount / 100));
         return temp + accumulator;
@@ -15,7 +16,7 @@ function TotalPriceView(props) {
                     Total product amount
                 </Col>
                 <Col span={10} className='text-end'>
-                    {Total}$
+                    <NumericFormat value={(Total * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
                 </Col>
             </Row>
             <Row className='mt-3'>
@@ -23,7 +24,7 @@ function TotalPriceView(props) {
                     total shipping cost
                 </Col>
                 <Col span={10} className='text-end'>
-                    0$
+                    {Currency.Symbol} 0
                 </Col>
             </Row>
             <Divider />
@@ -35,7 +36,7 @@ function TotalPriceView(props) {
                 </Col>
                 <Col span={10} className='text-end'>
                     <Typography.Title level={4}>
-                        {Total}$
+                        <NumericFormat value={(Total * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
                     </Typography.Title>
                 </Col>
             </Row>
@@ -44,7 +45,12 @@ function TotalPriceView(props) {
 }
 
 const mapStateToProps = (state) => ({
-    Data: state.CartReducer.Data
+    Data: state.CartReducer.Data,
+    Currency: {
+        Multiple: state.MoneyReducer.Multiple,
+        Name: state.MoneyReducer.Name,
+        Symbol: state.MoneyReducer.Symbol
+    }
 })
 
 const mapDispatchToProps = (dispatch) => ({ dispatch })

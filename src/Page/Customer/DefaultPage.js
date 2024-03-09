@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import ListMenu from '../../Component/ListMenu'
 import ListMenuDrawer from '../../Component/Drawer/ListMenuDrawer'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import CurrencyDropDown from '../../Component/CurrencyDropDown';
 
 function DefaultPage(props) {
     const { Data } = props;
@@ -45,9 +46,7 @@ function DefaultPage(props) {
                     <SearchOutlined onClick={() => { setShowSearchDrawer(true) }} style={{ fontSize: 22 }} />
                 </div>
                 <div className='mt-4 w-100 d-none d-lg-flex justify-content-center position-relative'>
-                    {/* <div className='w-100'> */}
                     <ListMenu />
-                    {/* </div> */}
                     <div className='d-flex position-absolute' style={{ right: 0 }}>
                         <SearchOutlined onClick={() => { setShowSearchDrawer(true) }} style={{ fontSize: 22 }} />
                         <Badge className='m-3' count={Data.length}>
@@ -57,6 +56,10 @@ function DefaultPage(props) {
                         </Badge>
                     </div>
                 </div>
+                <div className='M-Recently-Nav d-flex align-items-center M-Min-Responsive-1024'>
+                    <Link className='text-dark text-decoration-none' to={"/View-Recently"}>VIEWED</Link>
+                    <CurrencyDropDown />
+                </div>
             </div>
             <div className='M-Content'>
                 <Outlet />
@@ -64,7 +67,6 @@ function DefaultPage(props) {
             <div className='M-Footer'>
                 <Link to={'/'}>
                     <LazyLoadImage className='M-Logo-Responsive' src={List_Image.Logo} alt={"Narcis Logo"} />
-                    {/* <Image className='M-Logo-Responsive' src={List_Image.Logo} /> */}
                 </Link>
             </div>
             <div ref={MobileNavRef} style={{ borderTop: '1px solid', borderColor: 'lightgrey' }} className='M-Mobile-Nav'>
@@ -87,7 +89,6 @@ function DefaultPage(props) {
                 </div>
             </div>
             <SearchDrawer show={ShowSearchDrawer} onClose={() => setShowSearchDrawer(false)} />
-            {/* <ProductDetailDrawer /> */}
             <ListMenuDrawer show={ShowMenuDrawer} onClose={() => setShowMenuDrawer(false)} />
         </div >
     )

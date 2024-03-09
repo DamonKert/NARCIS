@@ -4,8 +4,9 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Notification } from '../Asset/ShowNotification';
+import { NumericFormat } from 'react-number-format';
 function ProductDetailInput(props) {
-    const { NotDrawer, Data, Size, setSize, setQuantity, Quantity } = props;
+    const { NotDrawer, Data, Size, setSize, setQuantity, Quantity, Currency } = props;
     const navigation = useNavigate();
     const HandleAddCart = () => {
         setQuantity(0);
@@ -97,7 +98,10 @@ function ProductDetailInput(props) {
                 </div>
                 <div className='d-flex align-items-center'>
                     <Typography.Title level={3}>
-                        {Size.Name === undefined ? "0" : (Data.Price - (Data.Price * Data.Discount / 100)) * Quantity}$
+                        {Size.Name === undefined ? Currency.Symbol + "0" :
+                            <NumericFormat value={((Data.Price - (Data.Price * Data.Discount / 100)) * Quantity * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
+                        }
+
                     </Typography.Title>
                     <span>
                         ({Quantity} items)
@@ -116,6 +120,13 @@ function ProductDetailInput(props) {
     )
 }
 
+const mapStateToProps = (state) => ({
+    Currency: {
+        Multiple: state.MoneyReducer.Multiple,
+        Name: state.MoneyReducer.Name,
+        Symbol: state.MoneyReducer.Symbol
+    }
+})
 const mapDispatchToProps = (dispatch) => ({ dispatch })
 
-export default connect(null, mapDispatchToProps)(ProductDetailInput);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailInput);
