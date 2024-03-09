@@ -4,7 +4,10 @@ import { Button } from 'react-bootstrap';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
 import ProductDetailDrawer from './Drawer/ProductDetailDrawer';
-function ViewProduct({ Data, dispatch }) {
+import { connect } from 'react-redux';
+import { NumericFormat } from 'react-number-format';
+function ViewProduct(props) {
+  const { Data, dispatch, Currency } = props;
   const [DrawerShow, setDrawerShow] = useState(false);
   const navigation = useNavigate();
   const HandleView = () => {
@@ -43,10 +46,16 @@ function ViewProduct({ Data, dispatch }) {
         description={
           <div>
             <div>
-              <p className='M-Delete-Text m-0'>{Data.Price} $</p>
+              <p className='M-Delete-Text m-0'>
+                <NumericFormat value={(Data.Price * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
+              </p>
             </div>
             <div className='mt-1'>
-              <p className='m-0'><strong>{Data.Price - Data.Price * Data.Discount / 100} $</strong></p>
+              <p className='m-0'>
+                <strong>
+                  <NumericFormat value={((Data.Price - Data.Price * Data.Discount / 100) * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
+                </strong>
+              </p>
             </div>
           </div>
         }>
@@ -55,4 +64,13 @@ function ViewProduct({ Data, dispatch }) {
     </Card>
   )
 }
-export default ViewProduct;
+
+const mapStateToProps = (state) => ({
+  Currency: {
+    Multiple: state.MoneyReducer.Multiple,
+    Name: state.MoneyReducer.Name,
+    Symbol: state.MoneyReducer.Symbol
+  }
+})
+
+export default connect(mapStateToProps)(ViewProduct);

@@ -6,9 +6,12 @@ import ImageGroupPreview from '../../../Component/ImageGroupPreview';
 import StackForMobile from '../../../Component/StackForMobile';
 import SuggestCollection from './SuggestCollection';
 import { List_Image } from '../../../Image/ListImage';
+import { connect } from 'react-redux';
+import { NumericFormat } from 'react-number-format';
 
 
-export default function ProductDetailPage() {
+function ProductDetailPage(props) {
+    const { Currency } = props;
     const [Size, setSize] = useState({});
     const [Quantity, setQuantity] = useState(0);
     const Data = {
@@ -112,7 +115,9 @@ export default function ProductDetailPage() {
                                         O. PRICE
                                     </Col>
                                     <Col xs={14} lg={18}>
-                                        <Typography.Text delete>{Data.Price}$</Typography.Text>
+                                        <Typography.Text delete>
+                                            <NumericFormat value={(Data.Price * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
+                                        </Typography.Text>
                                     </Col>
                                 </Row>
                             </Col>
@@ -122,7 +127,7 @@ export default function ProductDetailPage() {
                                         C. PRICE
                                     </Col>
                                     <Col xs={14} lg={18}>
-                                        {Data.Price - (Data.Price * Data.Discount / 100) + '$'}
+                                        <NumericFormat value={((Data.Price - (Data.Price * Data.Discount / 100)) * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
                                     </Col>
                                 </Row>
                             </Col>
@@ -153,3 +158,13 @@ export default function ProductDetailPage() {
         </div>
     )
 }
+
+const mapStateToProps = (state) => ({
+    Currency: {
+        Multiple: state.MoneyReducer.Multiple,
+        Name: state.MoneyReducer.Name,
+        Symbol: state.MoneyReducer.Symbol
+    }
+})
+
+export default connect(mapStateToProps)(ProductDetailPage);

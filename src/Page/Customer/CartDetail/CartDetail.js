@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import TotalPriceView from '../../../Component/TotalPriceView';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import ChangeSizeModal from '../../../Component/Modal/ChangeSizeModal';
+import { NumericFormat } from 'react-number-format';
 
 
 function CartDetail(props) {
-    const { Data } = props;
+    const { Data, Currency } = props;
     const [SelectedItem, setSelectedItem] = useState([]);
     const [SelectedAll, setSelectedAll] = useState(false);
     const [ChangeData, setChangeData] = useState(undefined);
@@ -93,13 +94,14 @@ function CartDetail(props) {
                                                                     {item.Title}
                                                                 </div>
                                                                 <div>
-                                                                    {item.Price - item.Price * item.Discount / 100} $
+                                                                    <NumericFormat value={((item.Price - item.Price * item.Discount / 100) * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
                                                                 </div>
                                                                 <div>
-                                                                    <span className='text-danger'>-0</span> $
+                                                                    {Currency.Symbol} <span className='text-danger'>-0</span>
                                                                 </div>
                                                                 <div>
-                                                                    50$ free shipping
+                                                                    <NumericFormat value={(50 * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
+                                                                    <span className='ms-2'>free shipping</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -161,8 +163,8 @@ function CartDetail(props) {
                                                             </div>
                                                             <div>
                                                                 <span className='fw-bold'>
-                                                                    {item.Detail.Quantity * (item.Price - item.Price * item.Discount / 100)}0
-                                                                </span> $
+                                                                    <NumericFormat value={(item.Detail.Quantity * (item.Price - item.Price * item.Discount / 100) * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />
+                                                                </span>
                                                             </div>
                                                         </div>
                                                         <div className='d-flex gap-3 mt-3'>
@@ -210,7 +212,12 @@ function CartDetail(props) {
 
 
 const mapStateToProps = (state) => ({
-    Data: state.CartReducer.Data
+    Data: state.CartReducer.Data,
+    Currency: {
+        Multiple: state.MoneyReducer.Multiple,
+        Name: state.MoneyReducer.Name,
+        Symbol: state.MoneyReducer.Symbol
+    }
 })
 
 const mapDispatchToProps = (dispatch) => ({ dispatch })

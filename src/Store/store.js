@@ -24,6 +24,19 @@ import { combineReducers, legacy_createStore } from "@reduxjs/toolkit";
 //     return { ...state };
 // }
 
+const MoneyReducer = (state = {
+    Multiple: 1,
+    Name: "USD $",
+    Symbol: "$"
+}, action) => {
+    switch (action.type) {
+        case "CHANGE-CURRENCY":
+            return { ...state, Multiple: action.payload.Multiple, Name: action.payload.Name, Symbol: action.payload.Symbol };
+        default:
+    }
+    return { ...state };
+}
+
 const CartReducer = (state = {
     Data: []
 }, action) => {
@@ -103,7 +116,8 @@ const CartReducer = (state = {
 
 const reducer = combineReducers({
     CartReducer,
-    // DrawerReducer
+    // DrawerReducer,
+    MoneyReducer
 })
 
 export const store = legacy_createStore(reducer);
