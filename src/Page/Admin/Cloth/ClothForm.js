@@ -4,9 +4,9 @@ import { Card, CardBody, CardFooter, CardHeader } from 'react-bootstrap'
 import { GetRequired, checkFile } from '../../../Asset/Validated/Validated';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import ImageGroupPreview from '../../../Component/ImageGroupPreview';
-import { ConvertObjectToFormData, getBase64 } from '../../../Asset/Tool Helper/Tool';
+import { ConvertImageAntdToOrigin, ConvertObjectToFormData, getBase64, getSizeAndQuantity } from '../../../Asset/Tool Helper/Tool';
 import { API } from '../../../API/API';
-import { GET_MODEL } from '../../../API/URL';
+import { GET_MODEL, CREATE_CLOTH } from '../../../API/URL';
 export default function ClothForm() {
     // const [PreviewImage,setPreviewImage] = useState();
     const [ImagePreview, setImagePreview] = useState("");
@@ -46,14 +46,30 @@ export default function ClothForm() {
     },]);
     const HandleSubmit = (Data) => {
         console.log(Data);
-
+        // const fileForm = ConvertObjectToFormData(Data);
+        // console.log(fileForm);
+        // for (var pair of fileForm.entries()) {
+        //     console.log(pair[0] + " " + pair[1]);
+        // }
+        // console.log(fileForm.get('Images')[0]);
         // console.log(Data.Images[0]);
-         
-         const params = new URLSearchParams(Data).toString();
-    
-        console.log(params);
-     
-        API.POST('https://localhost:7266/api/Clothes',params);
+         const ImagePaths = ConvertImageAntdToOrigin(Data.Images)
+         console.log(ImagePaths);
+         const filesSAQ = getSizeAndQuantity(Data.sizeAndQuantities);
+ console.log('f');
+          console.log(filesSAQ);
+       
+
+        // fileForm.append('Images', ImagePaths);
+        Data.Images = ImagePaths;
+        Data.sizeAndQuantities = filesSAQ;
+        console.log(Data);
+        const fileForm = ConvertObjectToFormData(Data);
+        console.log(fileForm);
+         for (var pair of fileForm.entries()) {
+            console.log(pair[0] + " " + pair[1]);
+        }
+         API.POST(CREATE_CLOTH,fileForm);
     }
 
     useEffect(() => {
@@ -102,8 +118,8 @@ export default function ClothForm() {
                             </Form.Item>
                         </Col>
                         <Col xs={24} lg={12}>
-                            <Form.Item label="Gategory" name={"GategoryId"} rules={[{
-                                ...GetRequired("Gategory")
+                            <Form.Item label="Category" name={"CategoryId"} rules={[{
+                                ...GetRequired("Category")
                             }]}>
                                 <Select showSearch autoClearSearchValue placeholder='Category' options={ListCategory} />
                             </Form.Item>
@@ -130,7 +146,7 @@ export default function ClothForm() {
                             </Form.Item>
                         </Col>
                         <Col xs={24}>
-                            <Form.List name={"size with cloth quantity"} className="w-100">
+                            <Form.List name={"sizeAndQuantities"} className="w-100">
                                 {/* <Row> */}
 
                                 {(fields, { add, remove }) => (
