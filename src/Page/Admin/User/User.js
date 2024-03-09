@@ -2,12 +2,14 @@ import { Button, Input, Spin, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { API } from '../../../API/API';
-import { GET_USER } from '../../../API/URL';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DELETE_USER_BY_ID, GET_USER } from '../../../API/URL';
+import { EditOutlined } from '@ant-design/icons';
+import DeletePopover from '../../../Component/Admin/Popover/DeletePopover';
+import { Notification } from '../../../Asset/ShowNotification';
 
 export default function User() {
   const [dataSource, setdataSource] = useState([]);
-  const [Loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(true);
   const [Search, setSearch] = useState("");
   const navigation = useNavigate();
 
@@ -19,8 +21,38 @@ export default function User() {
     navigation(`/Admin/User-Edit/${record.Id}`);
   }
 
-  useEffect(() => {
+  const HandleDelete = (record) => {
+    API.DELETE(DELETE_USER_BY_ID(record.Id))
+      .then(res => {
+        if (res.StatusCode === 200) {
+          Notification.ShowSuccess("Success", res.Message);
+          GetData();
+        } else {
+          Notification.ShowError("Error", res.Message);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  const GetData = () => {
     setLoading(true);
+    API.GET(GET_USER)
+      .then(res => {
+        setLoading(false);
+        res.Data.forEach((_, index) => {
+          res.Data[index].key = res.Data[index].Id;
+        })
+        setdataSource([...res.Data]);
+      })
+      .catch(err => {
+        setLoading(false);
+        console.log(err);
+      })
+  }
+
+  useEffect(() => {
     API.GET(GET_USER)
       .then(res => {
         setLoading(false);
@@ -59,10 +91,9 @@ export default function User() {
           dataSource={dataSource}
           columns={[
             {
-              title: "",
-              className: "text-center",
-              dataIndex: "",
-              render: (_, record, index) => index + 1
+              title: "Id",
+              className: 'text-center',
+              dataIndex: "Id",
             },
             {
               title: "Username",
@@ -85,18 +116,13 @@ export default function User() {
               className: "text-center",
               dataIndex: "ChatId"
             },
-            // {
-            //   title: "Role",
-            //   className: "text-center",
-            //   dataIndex: "Role"
-            // },
             {
               title: "Action",
               className: "text-center",
               dataIndex: "action",
               render: (_, record) => <span className='d-flex justify-content-around'>
                 <EditOutlined className='text-primary' style={{ fontSize: 20 }} onClick={() => { HandleEdit(record) }} />
-                <DeleteOutlined className='text-danger' style={{ fontSize: 20 }} />
+                <DeletePopover HandleDelete={() => HandleDelete(record)} />
               </span>
             }
           ]} />

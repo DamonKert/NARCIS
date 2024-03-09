@@ -68,12 +68,17 @@ export default function Province() {
                         emptyText: <h1>No Province Found</h1>,
                     }}
                     columns={[
+                        // {
+                        //     title: "",
+                        //     className: 'text-center',
+                        //     render: (Temp_Data, temp, index) => {
+                        //         return <div key={temp.Id}>{index + 1}</div>
+                        //     }
+                        // },
                         {
-                            title: "",
+                            title: "Id",
                             className: 'text-center',
-                            render: (Temp_Data, temp, index) => {
-                                return <div key={temp.Id}>{index + 1}</div>
-                            }
+                            dataIndex: "Id",
                         },
                         {
                             title: "Name KH",
@@ -97,13 +102,13 @@ export default function Province() {
                         }, {
                             title: "Action",
                             dataIndex: "Action",
-                            className: "text-end",
+                            className: "text-center",
                             key: "Action",
-                            render: (item, temp, index) => {
-                                return <div key={temp.Id} ><EditOutlined className='text-primary' style={{ fontSize: 20 }}
+                            render: (_, record) => {
+                                return <div key={record.Id} ><EditOutlined className='text-primary' style={{ fontSize: 20 }}
                                     onClick={() => {
                                         setShowEditModal(true);
-                                        setUpdateData(temp);
+                                        setUpdateData(record);
                                     }} /></div>
                             }
                         }]} dataSource={dataSource} />

@@ -16,8 +16,15 @@ const API = {
         const Data = fetch(`${HOST}${URL}`)
             .then((res) => res.json())
         return Data;
-
     },
+    DELETE: (URL) => {
+        const Data = fetch(`${HOST}${URL}`,
+            {
+                method: 'DELETE',
+            })
+            .then((res) => res.json())
+        return Data;
+    }
 }
 
 export { API };

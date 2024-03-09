@@ -10,17 +10,26 @@ import React, { Suspense } from 'react';
 import CartDetail from './Page/Customer/CartDetail/CartDetail';
 import CustomerInfo from './Page/Customer/CartDetail/CustomerInfo';
 import OrderCompleted from './Page/Customer/CartDetail/OrderCompleted';
-import Login from './Page/Login';
 
 //Customer
 const HomePage = React.lazy(() => import('./Page/Customer/HomePage'));
+
 const CustomerDefaultPage = React.lazy(() => import('./Page/Customer/DefaultPage'));
+
 const CartDetailPage = React.lazy(() => import('./Page/Customer/CartDetail/CartDetailPage'));
+
 const ProductDetailPage = React.lazy(() => import('./Page/Customer/ProductDetail/ProductDetailPage'));
+
 const CategoryPage = React.lazy(() => import('./Page/Customer/Category/CategoryPage'));
 
 
 //Admin
+const Login = React.lazy(() => import('./Page/Admin/Login'));
+
+const AdminProfile = React.lazy(() => import('./Page/Admin/Profile/Profile'));
+
+const AdminDashboard = React.lazy(() => import('./Page/Admin/Dashboard/Dashboard'));
+
 const AdminMiddleware = React.lazy(() => import('./Page/Admin/Middleware'));
 const AdminDefaultPage = React.lazy(() => import('./Page/Admin/DefaultLayout'));
 
@@ -30,14 +39,14 @@ const AdminUserForm = React.lazy(() => import('./Page/Admin/User/UserForm'));
 const AdminModel = React.lazy(() => import('./Page/Admin/Model/Model'));
 const AdminModelForm = React.lazy(() => import('./Page/Admin/Model/ModelForm'));
 
-const AdminProfile = React.lazy(() => import('./Page/Admin/Profile/Profile'));
-
-const AdminDashboard = React.lazy(() => import('./Page/Admin/Dashboard/Dashboard'));
-
 const AdminOrder = React.lazy(() => import('./Page/Admin/Order/Order'));
+const AdminOrderForm = React.lazy(() => import('./Page/Admin/Order/OrderForm'));
 
 const AdminCloth = React.lazy(() => import('./Page/Admin/Cloth/Cloth'));
 const AdminClothForm = React.lazy(() => import('./Page/Admin/Cloth/ClothForm'));
+
+const AdminCategory = React.lazy(() => import('./Page/Admin/Category/Category'));
+const AdminCategoryForm = React.lazy(() => import('./Page/Admin/Category/CategoryForm'));
 
 const AdminProvince = React.lazy(() => import('./Page/Admin/Province/Province'));
 
@@ -76,13 +85,20 @@ function App() {
             <Route path='Model-Form' element={<Suspense><AdminModelForm /></Suspense>}></Route>
             <Route path='Model-Edit/:id' element={<Suspense><AdminModelForm /></Suspense>}></Route>
 
+            <Route path='Category' element={<Suspense><AdminCategory /></Suspense>}></Route>
+            <Route path='Category-Form' element={<Suspense><AdminCategoryForm /></Suspense>}></Route>
+            <Route path='Category-Edit/:id' element={<Suspense><AdminCategoryForm /></Suspense>}></Route>
+
             <Route path='Province' element={<Suspense><AdminProvince /></Suspense>}></Route>
+
+            <Route path='Order' element={<Suspense><AdminOrder /></Suspense>}></Route>
+            <Route path='Order-Form' element={<Suspense><AdminOrderForm /></Suspense>}></Route>
+            <Route path='Order-Edit/:id' element={<Suspense><AdminOrderForm /></Suspense>}></Route>
 
             <Route path='Profile' element={<Suspense><AdminProfile /></Suspense>}></Route>
             <Route path='Dashboard' element={<Suspense><AdminDashboard /></Suspense>}></Route>
-            <Route path='Order' element={<Suspense><AdminOrder /></Suspense>}></Route>
+
           </Route>
-          {/* <Route path='/login' element={<Suspense><Login></Login></Suspense>}></Route> */}
           <Route path='Login' element={<Suspense><Login /></Suspense>}></Route>
         </Route>
         <Route path='*' element={<Suspense><Error404 /></Suspense>} />
