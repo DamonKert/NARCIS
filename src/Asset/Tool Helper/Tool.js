@@ -12,6 +12,14 @@ const ConvertImageAntdToOrigin = (Files) => {
     })
     return files;
 }
+const getSizeAndQuantity = (sizeAndQuantities) => {
+    const files = sizeAndQuantities.map((sizeAndQuantity) => {
+        
+       return sizeAndQuantity;
+    })
+
+   return JSON.stringify(files);
+}
 
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -21,4 +29,4 @@ const getBase64 = (file) =>
         reader.onerror = (error) => reject(error);
     });
 
-export { ConvertObjectToFormData, ConvertImageAntdToOrigin, getBase64 };
+export { ConvertObjectToFormData, ConvertImageAntdToOrigin, getBase64, getSizeAndQuantity };

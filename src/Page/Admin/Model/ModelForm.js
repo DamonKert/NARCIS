@@ -59,6 +59,7 @@ export default function ModelForm() {
             if (Check === true) {
                 Data.ID = pathname.split('/')[3];
                 const formData = ConvertObjectToFormData(Data);
+          
                 API.POST(UPDATE_MODEL, formData)
                     .then(res => {
                         setloading(false);
@@ -80,6 +81,7 @@ export default function ModelForm() {
         } else {
             Data.Profile = ConvertImageAntdToOrigin(Data.Profile)[0];
             const formData = ConvertObjectToFormData(Data);
+        
             API.POST(CREATE_MODEL, formData)
                 .then(res => {
                     setloading(false);
