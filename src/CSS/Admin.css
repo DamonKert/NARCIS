@@ -3,10 +3,26 @@
   background-color: white;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0px;
-  /* text-align: center; */
+  position: relative;
+  margin: 0;
 }
 
+.M-Logo-Responsive {
+  max-height: 70px;
+}
+
+.M-Mobile-Drawer-Icon {
+  position: absolute;
+  top: 0;
+  width: 80px;
+  left: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .M-Content {
   flex: 1;
 }
@@ -28,13 +44,18 @@
   width: 200px;
   justify-content: center;
 }
+
+.M-Aspect {
+  aspect-ratio: 1 / 1 !important;
+}
+
 .M-Logo {
   /* width: 200px !important; */
   height: 40px !important;
   /* width: auto !important; */
 }
 .M-Icon {
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .M-Input-Tool {
@@ -90,4 +111,10 @@
 
 .ant-form-item {
   width: 100% !important;
+}
+
+.M-Overflow-Table {
+  min-width: 250px !important;
+  overflow-x: scroll !important;
+  background-color: white !important;
 }

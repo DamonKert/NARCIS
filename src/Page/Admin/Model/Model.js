@@ -89,7 +89,7 @@ export default function Model() {
                         emptyText: <h1>No Model Found</h1>,
                     }}
                     dataSource={dataSource}
-                    className='M-Remove-Padding-Table'
+                    className='M-Remove-Padding-Table M-Overflow-Table'
                     columns={[{
                         title: "Profile",
                         className: "text-center",

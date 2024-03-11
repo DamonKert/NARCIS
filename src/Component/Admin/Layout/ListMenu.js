@@ -3,9 +3,12 @@ import { Menu } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router'
 
-export default function ListMenu() {
+export default function ListMenu({ onClose }) {
     const navigation = useNavigate();
     const HandleClick = (value) => {
+        if (onClose !== undefined) {
+            onClose();
+        }
         navigation(`${value.key}`);
     }
 

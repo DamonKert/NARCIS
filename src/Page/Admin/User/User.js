@@ -88,6 +88,7 @@ export default function User() {
           locale={{
             emptyText: <h1>No User Found</h1>,
           }}
+          className='M-Overflow-Table'
           dataSource={dataSource}
           columns={[
             {
