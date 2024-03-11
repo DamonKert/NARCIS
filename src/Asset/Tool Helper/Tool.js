@@ -1,7 +1,25 @@
+const InspectFormData = (formData) => {
+    for (var pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+    }
+}
+
+const GetRemainingImage = (fileList) => {
+    const newFile = fileList.filter(item => item.uid < 0).map(item => item.url)
+    return newFile.length > 0 ? newFile : null;
+}
+
 const ConvertObjectToFormData = (Data) => {
     const formData = new FormData();
     Object.keys(Data).forEach((key) => {
-        formData.append(key, Data[key]);
+        if (Array.isArray(Data[key])) {
+            Data[key].forEach(item => {
+                formData.append(key, item);
+            })
+        }
+        else {
+            formData.append(key, Data[key]);
+        }
     })
     return formData;
 };
@@ -13,12 +31,35 @@ const ConvertImageAntdToOrigin = (Files) => {
     return files;
 }
 const getSizeAndQuantity = (sizeAndQuantities) => {
-    const files = sizeAndQuantities.map((sizeAndQuantity) => {
-        
-       return sizeAndQuantity;
+    const files = sizeAndQuantities.map((item) => {
+        return {
+            Size: item.Size,
+            Quantity: item.Quantity
+        };
     })
+    return files;
+}
 
-   return JSON.stringify(files);
+const InsertArrayIntoFormData = (Data, Obj, Name) => {
+    Data.delete(Name);
+    Obj.forEach((item) => {
+        Data.append(Name, item);
+    })
+    return Data;
+}
+
+const InsertArrayObjectIntoFormData = (FormData, Obj, Name) => {
+    FormData.delete(Name);
+    Obj.forEach((item, index) => {
+        Object.keys(item).forEach(key => {
+            FormData.append(Name + '[' + index + '].' + key, item[key]);
+        })
+    })
+    return FormData;
+}
+
+const GetSelected = (item) => {
+    return item.split('/')[0];
 }
 
 const getBase64 = (file) =>
@@ -29,4 +70,4 @@ const getBase64 = (file) =>
         reader.onerror = (error) => reject(error);
     });
 
-export { ConvertObjectToFormData, ConvertImageAntdToOrigin, getBase64, getSizeAndQuantity };
+export { GetRemainingImage, InspectFormData, InsertArrayIntoFormData, GetSelected, InsertArrayObjectIntoFormData, ConvertObjectToFormData, ConvertImageAntdToOrigin, getBase64, getSizeAndQuantity };

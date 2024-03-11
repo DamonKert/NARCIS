@@ -67,6 +67,7 @@ export default function Province() {
                     locale={{
                         emptyText: <h1>No Province Found</h1>,
                     }}
+                    className='M-Overflow-Table'
                     columns={[
                         // {
                         //     title: "",

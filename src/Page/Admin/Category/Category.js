@@ -89,6 +89,7 @@ export default function Category() {
                     locale={{
                         emptyText: <h1>No Category Found</h1>,
                     }}
+                    className='M-Overflow-Table'
                     dataSource={dataSource}
                     columns={[
                         {

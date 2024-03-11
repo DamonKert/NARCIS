@@ -7,7 +7,7 @@ import ProductDetailDrawer from './Drawer/ProductDetailDrawer';
 import { connect } from 'react-redux';
 import { NumericFormat } from 'react-number-format';
 function ViewProduct(props) {
-  const { Data, dispatch, Currency } = props;
+  const { Data, Currency } = props;
   const [DrawerShow, setDrawerShow] = useState(false);
   const navigation = useNavigate();
   const HandleView = () => {
