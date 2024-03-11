@@ -16,13 +16,13 @@ function ProductDetailPage(props) {
     const [Quantity, setQuantity] = useState(0);
     const Data = {
         id: 1,
-        Title: "wrap style   pleated skirt dress " + 1,
+        Name: "wrap style   pleated skirt dress " + 1,
         Price: 4000,
         Discount: 20,
         Image: List_Image.Image_3,
         category: "Dress",
         Description: "Formal fabric with a smooth surface, wrap-style dress. The waist size can be adjusted with the strap inserted into the waist of the right layer to create a dress fit, skirt pleat detail from the left body waist cut, long sleeves with a slim silhouette, and a pleated line at the back. Emphasis on lines with darts.",
-        size: [{ Name: 'M', quantity: 50 }, { Name: 'S', quantity: 50 }, { Name: "L", quantity: 50 }, { Name: "XL", quantity: 50 }],
+        Sizes: [{ Name: 'M', quantity: 50 }, { Name: 'S', quantity: 50 }, { Name: "L", quantity: 50 }, { Name: "XL", quantity: 50 }],
         Model: "C1-030"
     }
     const [CurrentImage, setCurrentImage] = useState(Data.Image[0]);
@@ -82,7 +82,7 @@ function ProductDetailPage(props) {
                     <Col lg={12} className='p-0 mt-5 mt-lg-0' style={{ borderTop: "3px solid black" }}>
                         <Row>
                             <Col span={20}>
-                                <Typography.Title level={2} className='pt-4 pb-4'>{Data.Title}</Typography.Title>
+                                <Typography.Title level={2} className='pt-4 pb-4'>{Data.Name}</Typography.Title>
                             </Col>
                         </Row>
                         <div className='text-white Discount-Box d-flex justify-content-center align-items-center' style={{ borderRadius: '50%', backgroundColor: 'black' }}>

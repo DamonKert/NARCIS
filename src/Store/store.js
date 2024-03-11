@@ -72,9 +72,9 @@ const CartReducer = (state = {
 
         case "UPDATE-SIZE": {
             const newData = state.Data.filter(item => item.id !== action.payload.Data.id || action.payload.Data.Detail.Size.Name !== item.Detail.Size.Name);
-
+            console.log(newData);
             const check = newData.filter(item => item.id === action.payload.Data.id && action.payload.Size.Name === item.Detail.Size.Name);
-
+            console.log(newData);
             if (check.length > 0) {
                 const updatedData = newData.map(item => {
                     if (item.id === action.payload.Data.id && action.payload.Size.Name === item.Detail.Size.Name) {

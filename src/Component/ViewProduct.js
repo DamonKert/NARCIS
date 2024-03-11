@@ -11,7 +11,7 @@ function ViewProduct(props) {
   const [DrawerShow, setDrawerShow] = useState(false);
   const navigation = useNavigate();
   const HandleView = () => {
-    navigation(`/product/${Data.Title.replace(/ /g, '-')}`, {
+    navigation(`/product/${Data.Name.replace(/ /g, '-')}`, {
       state: {
         Data: Data
       }
@@ -20,7 +20,7 @@ function ViewProduct(props) {
   return (
     <Card className='border-0'
       cover={
-        <div onClick={HandleView} className='M-Image-Container' role='button' aria-label={Data.Title}>
+        <div onClick={HandleView} className='M-Image-Container' role='button' aria-label={Data.Name}>
           <LazyLoadImage
             alt='Product-Image'
             width={"100%"}
@@ -41,7 +41,7 @@ function ViewProduct(props) {
       <Card.Meta
         className='text-start'
         title={
-          <p className='m-0' role='button' onClick={HandleView}>{Data.Title}</p>
+          <p className='m-0' role='button' onClick={HandleView}>{Data.Name}</p>
         }
         description={
           <div>

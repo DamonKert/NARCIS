@@ -33,7 +33,7 @@ export default function ChangeSizeModal(props) {
                         Size
                     </Typography.Title>
                     <div className='d-flex gap-2 mt-3'>
-                        {Data.size.map((item, index) => {
+                        {Data.Sizes.map((item, index) => {
                             return <div key={index}
                                 role='button'
                                 onClick={() => {
