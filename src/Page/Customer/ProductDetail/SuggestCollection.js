@@ -14,13 +14,13 @@ function SuggestCollection(props) {
     for (let i = 0; i < 20; i++) {
       const Temp = {
         id: i,
-        Title: "wrap style   pleated skirt dress " + i,
+        Name: "wrap style   pleated skirt dress " + i,
         Price: 4000,
         Discount: 20,
         Image: List_Image.Image,
         category: "Dress",
         Description: "Formal fabric with a smooth surface, wrap-style dress. The waist size can be adjusted with the strap inserted into the waist of the right layer to create a dress fit, skirt pleat detail from the left body waist cut, long sleeves with a slim silhouette, and a pleated line at the back. Emphasis on lines with darts.",
-        size: [{ Name: 'M', quantity: 50 }, { Name: 'S', quantity: 50 }, { Name: "L", quantity: 50 }, { Name: "XL", quantity: 50 }],
+        Sizes: [{ Name: 'M', quantity: 50 }, { Name: 'S', quantity: 50 }, { Name: "L", quantity: 50 }, { Name: "XL", quantity: 50 }],
         Model: "C1-030"
       };
       Temp_Data.push(Temp);

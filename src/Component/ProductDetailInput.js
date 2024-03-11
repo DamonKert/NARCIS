@@ -43,7 +43,7 @@ function ProductDetailInput(props) {
                             Size
                         </Col>
                         <Col lg={19} xs={24} className='d-flex gap-2 mt-3 mt-lg-0'>
-                            {Data.size.map((item, index) => {
+                            {Data.Sizes.map((item, index) => {
                                 return <div key={index}
                                     role='button'
                                     onClick={() => {

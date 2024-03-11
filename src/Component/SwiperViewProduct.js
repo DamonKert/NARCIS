@@ -8,7 +8,7 @@ function SwiperViewProduct(props) {
     const { Data, Currency } = props;
     const navigation = useNavigate();
     const HandleView = () => {
-        navigation(`/product/${Data.Title.replace(/ /g, '-')}`, { state: { Data: Data } });
+        navigation(`/product/${Data.Name.replace(/ /g, '-')}`, { state: { Data: Data } });
     }
     return (
         <Card className='border-0'
@@ -20,7 +20,7 @@ function SwiperViewProduct(props) {
                         <Card.Meta
                             className='M-Swiper-View-Product p-4 text-start'
                             title={
-                                <p className='m-0' role='button' onClick={HandleView}>{Data.Title}</p>
+                                <p className='m-0' role='button' onClick={HandleView}>{Data.Name}</p>
                             }
                             description={
                                 <div>

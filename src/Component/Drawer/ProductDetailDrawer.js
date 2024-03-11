@@ -9,7 +9,7 @@ function ProductDetailDrawer(props) {
     const HandleClose = () => {
         onClose();
     }
-    if (Data.Title === undefined) {
+    if (Data.Name === undefined) {
         return <></>
     }
 
@@ -22,7 +22,7 @@ function ProductDetailDrawer(props) {
                 <Image className='M-Aspect object-fit-contain' src={Data.Image[0]} ></Image>
             </div>
             <Typography.Title level={4} className='mt-3'>
-                {Data.Title}
+                {Data.Name}
             </Typography.Title>
             <ProductDetailInput onClose={onClose} Data={Data} Size={Size} setSize={setSize} Quantity={Quantity} setQuantity={setQuantity} />
         </Drawer>

@@ -91,7 +91,7 @@ function CartDetail(props) {
                                                             <Image className='M-Cart-Image-View' preview={false} src={item.Image[0]} />
                                                             <div>
                                                                 <div>
-                                                                    {item.Title}
+                                                                    {item.Name}
                                                                 </div>
                                                                 <div>
                                                                     <NumericFormat value={((item.Price - item.Price * item.Discount / 100) * Currency.Multiple).toFixed(2)} displayType={'text'} thousandSeparator={true} prefix={Currency.Symbol} />

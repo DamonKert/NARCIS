@@ -71,7 +71,7 @@ export default function Category() {
     return (
         <Spin spinning={Loading}>
             <h3>
-                Model
+                Category
             </h3>
             <div className='mt-4 d-flex justify-content-between'>
                 <Input.Search placeholder='Name' className='M-Input-Tool'
