@@ -6,24 +6,37 @@ import { Button, Form } from 'react-bootstrap';
 import { List_Image } from '../../../Image/ListImage';
 import ViewProduct from '../../../Component/ViewProduct';
 import { connect } from 'react-redux';
+import CategoryBreadcrumb from './CategoryBreadcrumb';
+import { API } from '../../../API/API';
+import { GET_CATEGORY_BY_ID } from '../../../API/CustomerURL';
+import { Notification } from '../../../Asset/ShowNotification';
 
 function CategoryPage(props) {
-    const [CurrentType, setCurrentType] = useState(0);
     const location = useLocation();
     const categorySpilt = location.pathname.split('/');
     const Name = categorySpilt[2];
-    const Child = categorySpilt[3] || null;
-    const itemBreadcrumb = [{
-        title: <Link style={{ textDecoration: 'none' }} to={'/'}>Home</Link>,
-    },
-    {
-        title: Name,
-    },];
-    if (Child !== null) {
-        itemBreadcrumb.push({
-            title: Child,
-        })
-    }
+    const Child = categorySpilt[3] || undefined;
+    const [Category, setCategory] = useState({
+        "Id": "",
+        "Name": "",
+        "Childs": []
+    });
+    const [CurrentType, setCurrentType] = useState(Child || Name);
+
+    useEffect(() => {
+        API.GET(GET_CATEGORY_BY_ID(Name))
+            .then((result) => {
+                setCategory({
+                    ...result.Data,
+                    Id: result.Data.Id,
+                    Name: result.Data.Name,
+                    Childs: [...result.Data.Childs],
+                })
+            }).catch((err) => {
+                Notification.ShowError("Error 500", "Internal Server Error");
+            });
+    }, [Name])
+    console.log(Category);
     const [dataSource, setdataSource] = useState([]);
     const [Sort, setSort] = useState({
         ColumnName: "",
@@ -42,6 +55,8 @@ function CategoryPage(props) {
         Name: "JUMPSUIT",
         id: 3
     }]);
+
+
     useEffect(() => {
         const Temp_Data = [];
         for (let i = 0; i < 100; i++) {
@@ -63,14 +78,15 @@ function CategoryPage(props) {
     return (
         <div>
             <div className='M-Max-Responsive-1024'>
-                <StackForMobile Header={Child || Name} />
+                <StackForMobile Header={Category.Childs.filter(item => item.id === Child)[0] || Category.Name} />
             </div>
             <div className='M-Container-Detail'>
-                <div className='p-3 d-none d-lg-flex justify-content-end'>
+                {/* <div className='p-3 d-none d-lg-flex justify-content-end'>
                     <Breadcrumb
                         items={itemBreadcrumb}
                     />
-                </div>
+                </div> */}
+                <CategoryBreadcrumb Category={Category} Child={Child} />
                 <h2 className='pb-5 pt-5 fw-bold d-none d-lg-flex justify-content-center'>
                     {Name}
                 </h2>

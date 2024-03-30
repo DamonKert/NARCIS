@@ -27,7 +27,7 @@ export default function ClothDetailModal({ Show, OnClose, Data, setData }) {
                     </Carousel>
                 </div>
                 <div>
-                    Name : {Data.Id}
+                    Id : {Data.Id}
                 </div>
                 <div>
                     Name : {Data.Name}

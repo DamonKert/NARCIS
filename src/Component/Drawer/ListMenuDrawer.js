@@ -7,8 +7,11 @@ import { CloseOutlined } from '@ant-design/icons'
 import CurrencyDropDown from '../CurrencyDropDown'
 
 export default function ListMenuDrawer({ isInline, show, onClose }) {
+    const HandleCLose = () => {
+        onClose();
+    }
     return (
-        <Drawer placement='left' onClose={onClose} open={show} closable={false}>
+        <Drawer placement='left' onClose={HandleCLose} open={show} closable={false}>
             <CloseOutlined onClick={onClose} className='position-absolute' style={{ fontSize: 25, right: 25, top: 25, fontWeight: 400 }} />
             <div className='d-flex flex-column align-items-center mt-4'>
                 <Link to='/'>
@@ -16,12 +19,12 @@ export default function ListMenuDrawer({ isInline, show, onClose }) {
                 </Link>
                 <div className='d-flex align-items-center mt-4'>
                     <Link className='text-dark text-decoration-none' to={"/View-Recently"}>VIEWED</Link>
-                    <Divider type='vertical'/>
+                    <Divider type='vertical' />
                     <CurrencyDropDown />
                 </div>
             </div>
             <Divider />
-            <ListMenu isInline={true} />
+            <ListMenu isInline={true} onClose={HandleCLose} />
         </Drawer>
     )
 }

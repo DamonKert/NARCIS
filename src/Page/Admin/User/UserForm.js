@@ -114,10 +114,12 @@ export default function UserForm() {
                                 <Form.Item label="Username" name={"Username"}
                                     rules={[{
                                         ...GetRequired("Username")
-                                    }, {
-                                        min: 6,
-                                        message: "Username must be at least 6 letter"
-                                    }]}>
+                                    }
+                                        // , {
+                                        //     min: 6,
+                                        //     message: "Username must be at least 6 letter"
+                                        // }
+                                    ]}>
                                     <Input
                                         allowClear
                                         placeholder='Username' autoComplete='off' />

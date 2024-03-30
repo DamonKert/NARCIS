@@ -48,7 +48,7 @@ function ProductDetailInput(props) {
                                     role='button'
                                     onClick={() => {
                                         setSize(item);
-                                        setQuantity(1);
+                                        if (Quantity === 0) setQuantity(1);
                                     }} style={{ border: '1px solid', borderColor: (Size.Name === item.Name ? "black" : "lightgrey"), width: 40, height: 25 }} className='d-flex justify-content-center align-items-center'>
                                     <div>{item.Name}</div>
                                 </div>
@@ -74,19 +74,19 @@ function ProductDetailInput(props) {
                                 <InputNumber className='border-0' max={Size.Quantity}
                                     value={Quantity}
                                     onChange={(text) => {
-                                        if (text >= 1 && text <= Size.quantity) {
+                                        if (text >= 1) {
                                             setQuantity(text);
                                         }
                                     }} />
                             </div>
                             <div role='button' onClick={() => {
-                                if (Size.quantity > Quantity) { setQuantity(Quantity + 1); }
+                                setQuantity(Quantity + 1);
                             }} className='h-100 d-flex justify-content-center align-items-center' style={{ width: 30, border: '1px solid', borderColor: 'lightgrey' }}>
                                 <PlusOutlined />
                             </div>
                         </Col>
                         <Col span={19} className='mt-2'>
-                            <Typography.Text>(Minimum order quantity of 1 or {Size.quantity || 'more'} )</Typography.Text>
+                            <Typography.Text>(Minimum order quantity of 1 or more )</Typography.Text>
                         </Col>
                     </Row>
                 </Col>

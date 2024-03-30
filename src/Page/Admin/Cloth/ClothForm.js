@@ -155,11 +155,10 @@ export default function ClothForm() {
     return (
         <Spin spinning={Loading}>
             <Form form={form} layout='vertical'
-                // requiredMark={"optional"}
                 onFinish={HandleSubmit}>
                 <Card className='border-0'>
                     <CardHeader className='border-0 bg-white'>
-                        <h1>Cloth Form</h1>
+                        <h1>{IsUpdate ? 'Edit Cloth information' : 'Cloth Form'}</h1>
                     </CardHeader>
                     <CardBody>
                         <Row

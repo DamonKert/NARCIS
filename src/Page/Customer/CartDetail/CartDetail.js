@@ -32,7 +32,7 @@ function CartDetail(props) {
                 Size: Size
             }
         });
-    }
+    } 
     const HandleDelete = (DeleteData) => {
         props.dispatch({
             type: "DELETE-DATA",
@@ -40,8 +40,6 @@ function CartDetail(props) {
         })
     }
     const onChange = (id, Name) => {
-        console.log(Name);
-        console.log(SelectedItem);
         SelectedItem.forEach((item, index) => {
             if (item.id === id && item.Size === Name) {
                 SelectedItem[index].checked = !SelectedItem[index].checked;
@@ -134,7 +132,7 @@ function CartDetail(props) {
                                                                     <InputNumber className='border-0' max={item.Detail.Size.quantity}
                                                                         value={item.Detail.Quantity}
                                                                         onChange={(value) => {
-                                                                            if (value >= 1 && value <= item.Detail.Size.quantity) {
+                                                                            if (value >= 1) {
                                                                                 item.Detail.Quantity = value;
                                                                                 props.dispatch({
                                                                                     type: "UPDATE-DATA",
@@ -144,13 +142,11 @@ function CartDetail(props) {
                                                                         }} />
                                                                 </div>
                                                                 <div role='button' onClick={() => {
-                                                                    if (item.Detail.Size.quantity > item.Detail.Quantity) {
-                                                                        item.Detail.Quantity = item.Detail.Quantity + 1;
-                                                                        props.dispatch({
-                                                                            type: "UPDATE-DATA",
-                                                                            payload: item
-                                                                        })
-                                                                    }
+                                                                    item.Detail.Quantity = item.Detail.Quantity + 1;
+                                                                    props.dispatch({
+                                                                        type: "UPDATE-DATA",
+                                                                        payload: item
+                                                                    })
                                                                 }} className='user-select-none h-100 d-flex justify-content-center align-items-center' style={{ width: 30, border: '1px solid', borderColor: 'lightgrey' }}>
                                                                     <PlusOutlined />
                                                                 </div>
