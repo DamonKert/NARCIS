@@ -15,72 +15,36 @@ import { GET_CLOTHES } from '../../API/URL';
 
 function HomePage(props) {
     const [dataSource, setdataSource] = useState([]);
-
     useEffect(() => {
-        // {
-        //     "Id": 3,
-        //     "Name": "Damon",
-        //     "Description": "121",
-        //     "Price": 12,
-        //     "Code": "12",
-        //     "Category": {
-        //       "Id": 2,
-        //       "Name": "Shirt & Blouse",
-        //       "Parent": null
-        //     },
-        //     "ImagePaths": [
-        //       "https://cloth-images.s3-ap-southeast-1.amazonaws.com/734f18c8-1e72-4a2d-ab53-0b3e6910fe96.jpg"
-        //     ],
-        //     "Discount": 12,
-        //     "Sizes": [
-        //       {
-        //         "Id": 2,
-        //         "Name": "S"
-        //       },
-        //       {
-        //         "Id": 3,
-        //         "Name": "M"
-        //       },
-        //       {
-        //         "Id": 4,
-        //         "Name": "L"
-        //       }
-        //     ],
-        //     "Model": {
-        //       "Id": 2,
-        //       "Name": "Ari",
-        //       "Age": null,
-        //       "Height": 163,
-        //       "Weight": 46,
-        //       "Top": "S",
-        //       "Bottom": "S",
-        //       "ProfilePicture": "https://i.imgur.com/0uwQ2KA.jpeg"
-        //     }
-        //   }
         API.GET(GET_CLOTHES)
             .then(res => {
-                console.log(res);
+                res.Data.forEach((item, index) => {
+                    res.Data[index].Image = item.ImagePaths;
+                    res.Data[index].Model = item.Code;
+                    res.Data[index].Category = item.Category.Name;
+                })
+                setdataSource([...res.Data]);
             })
             .catch(err => {
                 console.log(err);
             })
 
-        const Temp_Data = [];
-        for (let i = 0; i < 20; i++) {
-            const Temp = {
-                id: i,
-                Name: "wrap style pleated skirt dress " + i,
-                Price: 4000,
-                Discount: 20,
-                Image: i < 10 ? List_Image.Image_1 : i < 15 ? List_Image.Image_2 : List_Image.Image_3,
-                category: "Dress",
-                Description: "Formal fabric with a smooth surface, wrap-style dress. The waist size can be adjusted with the strap inserted into the waist of the right layer to create a dress fit, skirt pleat detail from the left body waist cut, long sleeves with a slim silhouette, and a pleated line at the back. Emphasis on lines with darts.",
-                Sizes: [{ Name: 'M', quantity: 50 }, { Name: 'S', quantity: 50 }, { Name: "L", quantity: 50 }, { Name: "XL", quantity: 50 }],
-                Model: "C1-030"
-            };
-            Temp_Data.push(Temp);
-        }
-        setdataSource([...Temp_Data]);
+        // const Temp_Data = [];
+        // for (let i = 0; i < 20; i++) {
+        //     const Temp = {
+        //         id: i,
+        //         Name: "wrap style pleated skirt dress " + i,
+        //         Price: 4000,
+        //         Discount: 20,
+        //         Image: i < 10 ? List_Image.Image_1 : i < 15 ? List_Image.Image_2 : List_Image.Image_3,
+        //         category: "Dress",
+        //         Description: "Formal fabric with a smooth surface, wrap-style dress. The waist size can be adjusted with the strap inserted into the waist of the right layer to create a dress fit, skirt pleat detail from the left body waist cut, long sleeves with a slim silhouette, and a pleated line at the back. Emphasis on lines with darts.",
+        //         Sizes: [{ Name: 'M', quantity: 50 }, { Name: 'S', quantity: 50 }, { Name: "L", quantity: 50 }, { Name: "XL", quantity: 50 }],
+        //         Model: "C1-030"
+        //     };
+        //     Temp_Data.push(Temp);
+        // }
+        // setdataSource([...Temp_Data]);
     }, [])
     const Image_Banner = [1, 2, 3, 4, 5, 6, 7]
     return (

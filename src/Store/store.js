@@ -42,10 +42,10 @@ const CartReducer = (state = {
 }, action) => {
     switch (action.type) {
         case "ADD-CART": {
-            const Check = state.Data.filter(item => item.id === action.payload.id && item.Detail.Size.Name === action.payload.Detail.Size.Name);
+            const Check = state.Data.filter(item => item.Id === action.payload.Id && item.Detail.Size.Name === action.payload.Detail.Size.Name);
             if (Check.length > 0) {
                 state.Data = state.Data.map((item) => {
-                    if (item.id !== action.payload.id || item.Detail.Size.Name !== action.payload.Detail.Size.Name)
+                    if (item.Id !== action.payload.Id || item.Detail.Size.Name !== action.payload.Detail.Size.Name)
                         return item;
                     // else
                     if (item.Detail.Quantity + action.payload.Detail.Quantity > item.Detail.Size.quantity)
@@ -67,42 +67,35 @@ const CartReducer = (state = {
         case "DELETE-DATA":
             return {
                 ...state,
-                Data: [...state.Data.filter((item) => item.id !== action.payload.id)]
+                Data: [...state.Data.filter((item) => item.Id !== action.payload.Id)]
             };
 
         case "UPDATE-SIZE": {
-            const newData = state.Data.filter(item => item.id !== action.payload.Data.id || action.payload.Data.Detail.Size.Name !== item.Detail.Size.Name);
-            console.log(newData);
-            const check = newData.filter(item => item.id === action.payload.Data.id && action.payload.Size.Name === item.Detail.Size.Name);
-            console.log(newData);
-            if (check.length > 0) {
-                const updatedData = newData.map(item => {
-                    if (item.id === action.payload.Data.id && action.payload.Size.Name === item.Detail.Size.Name) {
-                        const updatedQuantity = action.payload.Data.Detail.Quantity + item.Detail.Quantity;
-                        item.Detail.Quantity = updatedQuantity > item.Detail.Size.quantity ? item.Detail.Size.quantity : updatedQuantity;
-                    }
-                    return item;
-                });
+            console.log(state.Data);
+            const Temp = state.Data.filter((item) => item.Id !== action.payload.Data.Id && item.Detail.Size.Id !== action.payload.Data.Detail.Size.Id);
 
-                return {
-                    ...state,
-                    Data: updatedData
-                };
-            } else {
-                action.payload.Data.Detail.Size = action.payload.Size;
-                const updatedState = state.Data.map(item => {
-                    return item.id === action.payload.Data.id ? action.payload.Data : item;
+            
+            var Check = false;
+            const NewState = Temp.map((item) => {
+                if (item.Id !== action.payload.Data.Id || item.Detail.Size.Id !== action.payload.Size.Id)
+                    return item
+                Check = true;
+                item.Detail.Quantity += action.payload.Data.Detail.Quantity
+                return item;
+            })
+            if (Check === false) {
+                NewState.push({
+                    ...action.payload
                 });
-
-                return {
-                    ...state,
-                    Data: updatedState
-                };
             }
+            return {
+                ...state,
+                Data: [...NewState]
+            };
         }
         case "UPDATE-DATA": {
             state.Data = state.Data.map((item) => {
-                return item.id !== action.payload.id || item.Detail.Size.Name !== action.payload.Detail.Size.Name ? item : action.payload
+                return item.Id !== action.payload.Id || item.Detail.Size.Id !== action.payload.Detail.Size.Id ? item : action.payload
             })
             return {
                 ...state,
